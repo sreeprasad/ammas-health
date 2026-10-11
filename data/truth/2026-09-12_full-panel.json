@@ -1,0 +1,542 @@
+{
+  "report_key": "2026-09-12_full-panel",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-09-12",
+  "title": "Full panel",
+  "pages": 4,
+  "files": {
+    "pdf": "reports/pdf/2026-09-12_full-panel.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-09-12_full-panel_p1.jpg",
+        "transform": {
+          "rotate_deg": -0.17,
+          "keystone": 0.026,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      },
+      {
+        "page": 2,
+        "file": "reports/photo/2026-09-12_full-panel_p2.jpg",
+        "transform": {
+          "rotate_deg": -0.19,
+          "keystone": 0.026,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      },
+      {
+        "page": 3,
+        "file": "reports/photo/2026-09-12_full-panel_p3.jpg",
+        "transform": {
+          "rotate_deg": -1.55,
+          "keystone": 0.015,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      },
+      {
+        "page": 4,
+        "file": "reports/photo/2026-09-12_full-panel_p4.jpg",
+        "transform": {
+          "rotate_deg": 1.35,
+          "keystone": 0.027,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "hgb",
+      "standard_name": "Hemoglobin",
+      "printed_name": "HGB",
+      "value": 10.6,
+      "value_text": "10.6",
+      "unit": "g/dL",
+      "range": {
+        "low": 12.0,
+        "high": 15.5,
+        "text": "12.0 - 15.5"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.5105,
+        0.3352
+      ]
+    },
+    {
+      "test": "rbc",
+      "standard_name": "Red blood cell count",
+      "printed_name": "RBC",
+      "value": 3.75,
+      "value_text": "3.75",
+      "unit": "million/µL",
+      "range": {
+        "low": 4.0,
+        "high": 5.2,
+        "text": "4.00 - 5.20"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5105,
+        0.3683
+      ]
+    },
+    {
+      "test": "wbc",
+      "standard_name": "White blood cell count",
+      "printed_name": "WBC",
+      "value": 7.0,
+      "value_text": "7.0",
+      "unit": "10³/µL",
+      "range": {
+        "low": 4.0,
+        "high": 11.0,
+        "text": "4.0 - 11.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "plt",
+      "standard_name": "Platelet count",
+      "printed_name": "PLT",
+      "value": 252.0,
+      "value_text": "252",
+      "unit": "10³/µL",
+      "range": {
+        "low": 150.0,
+        "high": 410.0,
+        "text": "150 - 410"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "hct",
+      "standard_name": "Hematocrit",
+      "printed_name": "HCT",
+      "value": 32.0,
+      "value_text": "32.0",
+      "unit": "%",
+      "range": {
+        "low": 36.0,
+        "high": 46.0,
+        "text": "36.0 - 46.0"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.5105,
+        0.4675
+      ]
+    },
+    {
+      "test": "mcv",
+      "standard_name": "Mean corpuscular volume",
+      "printed_name": "MCV",
+      "value": 79.2,
+      "value_text": "79.2",
+      "unit": "fL",
+      "range": {
+        "low": 80.0,
+        "high": 100.0,
+        "text": "80.0 - 100.0"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.5105,
+        0.5006
+      ]
+    },
+    {
+      "test": "hba1c",
+      "standard_name": "HbA1c",
+      "printed_name": "HbA1c",
+      "value": 7.1,
+      "value_text": "7.1",
+      "unit": "%",
+      "range": {
+        "low": 4.0,
+        "high": 5.6,
+        "text": "4.0 - 5.6"
+      },
+      "flag": "H",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "fbs",
+      "standard_name": "Fasting glucose",
+      "printed_name": "Glucose (F)",
+      "value": 138,
+      "value_text": "138",
+      "unit": "mg/dL",
+      "range": {
+        "low": 70.0,
+        "high": 100.0,
+        "text": "70 - 100"
+      },
+      "flag": "H",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4968,
+        0.3683
+      ]
+    },
+    {
+      "test": "eag",
+      "standard_name": "Estimated average glucose",
+      "printed_name": "eAG",
+      "value": 157,
+      "value_text": "157",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 117.0,
+        "text": "< 117"
+      },
+      "flag": "H",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "urea",
+      "standard_name": "Urea",
+      "printed_name": "Urea",
+      "value": 27.0,
+      "value_text": "27",
+      "unit": "mg/dL",
+      "range": {
+        "low": 15.0,
+        "high": 40.0,
+        "text": "15 - 40"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4839,
+        0.4344
+      ]
+    },
+    {
+      "test": "creat",
+      "standard_name": "Creatinine",
+      "printed_name": "S. Creatinine",
+      "value": 0.96,
+      "value_text": "0.96",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.6,
+        "high": 1.1,
+        "text": "0.60 - 1.10"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.451,
+        0.5105,
+        0.4675
+      ]
+    },
+    {
+      "test": "uric",
+      "standard_name": "Uric acid",
+      "printed_name": "Uric Acid",
+      "value": 5.5,
+      "value_text": "5.5",
+      "unit": "mg/dL",
+      "range": {
+        "low": 2.4,
+        "high": 6.0,
+        "text": "2.4 - 6.0"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "tc",
+      "standard_name": "Total cholesterol",
+      "printed_name": "Total Cholesterol",
+      "value": 180,
+      "value_text": "180",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 200.0,
+        "text": "< 200"
+      },
+      "flag": "",
+      "page": 3,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "tg",
+      "standard_name": "Triglycerides",
+      "printed_name": "Triglycerides",
+      "value": 141.0,
+      "value_text": "141",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 150.0,
+        "text": "< 150"
+      },
+      "flag": "",
+      "page": 3,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4968,
+        0.3683
+      ]
+    },
+    {
+      "test": "hdl",
+      "standard_name": "HDL cholesterol",
+      "printed_name": "HDL-C",
+      "value": 48.0,
+      "value_text": "48",
+      "unit": "mg/dL",
+      "range": {
+        "low": 40.0,
+        "high": null,
+        "text": "> 40"
+      },
+      "flag": "",
+      "page": 3,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4839,
+        0.4014
+      ]
+    },
+    {
+      "test": "ldl",
+      "standard_name": "LDL cholesterol",
+      "printed_name": "LDL-C",
+      "value": 104,
+      "value_text": "104",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 100.0,
+        "text": "< 100"
+      },
+      "flag": "H",
+      "page": 3,
+      "defect": "smudge",
+      "photo_reads_as": "1?4",
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "vldl",
+      "standard_name": "VLDL cholesterol",
+      "printed_name": "VLDL",
+      "value": 28,
+      "value_text": "28",
+      "unit": "mg/dL",
+      "range": {
+        "low": 5.0,
+        "high": 40.0,
+        "text": "5 - 40"
+      },
+      "flag": "",
+      "page": 3,
+      "box": [
+        0.4468,
+        0.451,
+        0.4839,
+        0.4675
+      ]
+    },
+    {
+      "test": "non_hdl",
+      "standard_name": "Non-HDL cholesterol",
+      "printed_name": "Non-HDL Cholesterol",
+      "value": 132.0,
+      "value_text": "132",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 130.0,
+        "text": "< 130"
+      },
+      "flag": "H",
+      "page": 3,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "tsh",
+      "standard_name": "TSH",
+      "printed_name": "TSH",
+      "value": 2.3,
+      "value_text": "2.3",
+      "unit": "mIU/L",
+      "range": {
+        "low": 0.4,
+        "high": 4.0,
+        "text": "0.4 - 4.0"
+      },
+      "flag": "",
+      "page": 4,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "ft4",
+      "standard_name": "Free T4",
+      "printed_name": "FT4",
+      "value": 1.21,
+      "value_text": "1.21",
+      "unit": "ng/dL",
+      "range": {
+        "low": 0.8,
+        "high": 1.8,
+        "text": "0.80 - 1.80"
+      },
+      "flag": "",
+      "page": 4,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5105,
+        0.3683
+      ]
+    },
+    {
+      "test": "ft3",
+      "standard_name": "Free T3",
+      "printed_name": "FT3",
+      "value": 3.1,
+      "value_text": "3.1",
+      "unit": "pg/mL",
+      "range": {
+        "low": 2.3,
+        "high": 4.2,
+        "text": "2.3 - 4.2"
+      },
+      "flag": "",
+      "page": 4,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "vitd",
+      "standard_name": "Vitamin D",
+      "printed_name": "25-OH Vit D",
+      "value": 32,
+      "value_text": "32",
+      "unit": "ng/mL",
+      "range": {
+        "low": 30.0,
+        "high": 100.0,
+        "text": "30 - 100"
+      },
+      "flag": "",
+      "page": 4,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4839,
+        0.4344
+      ]
+    },
+    {
+      "test": "b12",
+      "standard_name": "Vitamin B12",
+      "printed_name": "Vit B12",
+      "value": 268.0,
+      "value_text": "268",
+      "unit": "pg/mL",
+      "range": {
+        "low": 200.0,
+        "high": 900.0,
+        "text": "200 - 900"
+      },
+      "flag": "",
+      "page": 4,
+      "box": [
+        0.4468,
+        0.451,
+        0.4968,
+        0.4675
+      ]
+    }
+  ]
+}

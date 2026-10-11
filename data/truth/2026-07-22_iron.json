@@ -1,0 +1,132 @@
+{
+  "report_key": "2026-07-22_iron",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-07-22",
+  "title": "Iron studies",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-07-22_iron.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-07-22_iron_p1.jpg",
+        "transform": {
+          "rotate_deg": 2.18,
+          "keystone": 0.016,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "iron",
+      "standard_name": "Serum iron",
+      "printed_name": "Iron",
+      "value": 49.0,
+      "value_text": "49",
+      "unit": "µg/dL",
+      "range": {
+        "low": 60.0,
+        "high": 170.0,
+        "text": "60 - 170"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4839,
+        0.3352
+      ]
+    },
+    {
+      "test": "ferritin",
+      "standard_name": "Ferritin",
+      "printed_name": "Ferritin",
+      "value": 18.0,
+      "value_text": "18",
+      "unit": "ng/mL",
+      "range": {
+        "low": 15.0,
+        "high": 150.0,
+        "text": "15 - 150"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4839,
+        0.3683
+      ]
+    },
+    {
+      "test": "tibc",
+      "standard_name": "Total iron binding capacity",
+      "printed_name": "TIBC",
+      "value": 418.0,
+      "value_text": "418",
+      "unit": "µg/dL",
+      "range": {
+        "low": 250.0,
+        "high": 450.0,
+        "text": "250 - 450"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "uibc",
+      "standard_name": "Unsaturated iron binding capacity",
+      "printed_name": "UIBC",
+      "value": 369,
+      "value_text": "369",
+      "unit": "µg/dL",
+      "range": {
+        "low": 110.0,
+        "high": 370.0,
+        "text": "110 - 370"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "tsat",
+      "standard_name": "Transferrin saturation",
+      "printed_name": "Transferrin Saturation",
+      "value": 12,
+      "value_text": "12",
+      "unit": "%",
+      "range": {
+        "low": 20.0,
+        "high": 50.0,
+        "text": "20 - 50"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4839,
+        0.4675
+      ]
+    }
+  ]
+}

@@ -1,0 +1,195 @@
+{
+  "report_key": "2026-01-08_vitamins-iron",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-01-08",
+  "title": "Vitamins & iron studies",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-01-08_vitamins-iron.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-01-08_vitamins-iron_p1.jpg",
+        "transform": {
+          "rotate_deg": -0.63,
+          "keystone": 0.023,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "vitd",
+      "standard_name": "Vitamin D",
+      "printed_name": "Vitamin D (25-OH)",
+      "value": 14,
+      "value_text": "14",
+      "unit": "ng/mL",
+      "range": {
+        "low": 30.0,
+        "high": 100.0,
+        "text": "30 - 100"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4839,
+        0.3352
+      ]
+    },
+    {
+      "test": "b12",
+      "standard_name": "Vitamin B12",
+      "printed_name": "Vitamin B12",
+      "value": 318.0,
+      "value_text": "318",
+      "unit": "pg/mL",
+      "range": {
+        "low": 200.0,
+        "high": 900.0,
+        "text": "200 - 900"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4968,
+        0.3683
+      ]
+    },
+    {
+      "test": "folate",
+      "standard_name": "Folate",
+      "printed_name": "Folate",
+      "value": 7.1,
+      "value_text": "7.1",
+      "unit": "ng/mL",
+      "range": {
+        "low": 3.0,
+        "high": 17.0,
+        "text": "3.0 - 17.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "iron",
+      "standard_name": "Serum iron",
+      "printed_name": "Serum Iron",
+      "value": 59.0,
+      "value_text": "59",
+      "unit": "µg/dL",
+      "range": {
+        "low": 60.0,
+        "high": 170.0,
+        "text": "60 - 170"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4839,
+        0.4344
+      ]
+    },
+    {
+      "test": "ferritin",
+      "standard_name": "Ferritin",
+      "printed_name": "Ferritin",
+      "value": 23.0,
+      "value_text": "23",
+      "unit": "ng/mL",
+      "range": {
+        "low": 15.0,
+        "high": 150.0,
+        "text": "15 - 150"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4839,
+        0.4675
+      ]
+    },
+    {
+      "test": "tibc",
+      "standard_name": "Total iron binding capacity",
+      "printed_name": "TIBC",
+      "value": 392.0,
+      "value_text": "392",
+      "unit": "µg/dL",
+      "range": {
+        "low": 250.0,
+        "high": 450.0,
+        "text": "250 - 450"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "uibc",
+      "standard_name": "Unsaturated iron binding capacity",
+      "printed_name": "UIBC",
+      "value": 333,
+      "value_text": "333",
+      "unit": "µg/dL",
+      "range": {
+        "low": 110.0,
+        "high": 370.0,
+        "text": "110 - 370"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "tsat",
+      "standard_name": "Transferrin saturation",
+      "printed_name": "Transferrin Saturation",
+      "value": 15,
+      "value_text": "15",
+      "unit": "%",
+      "range": {
+        "low": 20.0,
+        "high": 50.0,
+        "text": "20 - 50"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4839,
+        0.5667
+      ]
+    }
+  ]
+}

@@ -1,0 +1,321 @@
+{
+  "report_key": "2026-01-08_lipid-cardiac",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-01-08",
+  "title": "Lipid profile & cardiac markers",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-01-08_lipid-cardiac.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-01-08_lipid-cardiac_p1.jpg",
+        "transform": {
+          "rotate_deg": -2.76,
+          "keystone": 0.031,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "tc",
+      "standard_name": "Total cholesterol",
+      "printed_name": "Total Cholesterol",
+      "value": 210,
+      "value_text": "210",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 200.0,
+        "text": "< 200"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "tg",
+      "standard_name": "Triglycerides",
+      "printed_name": "Triglycerides",
+      "value": 161.0,
+      "value_text": "161",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 150.0,
+        "text": "< 150"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4968,
+        0.3683
+      ]
+    },
+    {
+      "test": "hdl",
+      "standard_name": "HDL cholesterol",
+      "printed_name": "HDL Cholesterol",
+      "value": 46.0,
+      "value_text": "46",
+      "unit": "mg/dL",
+      "range": {
+        "low": 40.0,
+        "high": null,
+        "text": "> 40"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4839,
+        0.4014
+      ]
+    },
+    {
+      "test": "ldl",
+      "standard_name": "LDL cholesterol",
+      "printed_name": "LDL Cholesterol",
+      "value": 132,
+      "value_text": "132",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 100.0,
+        "text": "< 100"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "vldl",
+      "standard_name": "VLDL cholesterol",
+      "printed_name": "VLDL",
+      "value": 32,
+      "value_text": "32",
+      "unit": "mg/dL",
+      "range": {
+        "low": 5.0,
+        "high": 40.0,
+        "text": "5 - 40"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4839,
+        0.4675
+      ]
+    },
+    {
+      "test": "non_hdl",
+      "standard_name": "Non-HDL cholesterol",
+      "printed_name": "Non-HDL Cholesterol",
+      "value": 164.0,
+      "value_text": "164",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 130.0,
+        "text": "< 130"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "tc_hdl",
+      "standard_name": "Total cholesterol/HDL ratio",
+      "printed_name": "TC/HDL Ratio",
+      "value": 4.6,
+      "value_text": "4.6",
+      "unit": "",
+      "range": {
+        "low": 0.0,
+        "high": 5.0,
+        "text": "< 5.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "ldl_hdl",
+      "standard_name": "LDL/HDL ratio",
+      "printed_name": "LDL/HDL Ratio",
+      "value": 2.9,
+      "value_text": "2.9",
+      "unit": "",
+      "range": {
+        "low": 0.0,
+        "high": 3.5,
+        "text": "< 3.5"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4968,
+        0.5667
+      ]
+    },
+    {
+      "test": "tg_hdl",
+      "standard_name": "Triglyceride/HDL ratio",
+      "printed_name": "TG/HDL Ratio",
+      "value": 3.5,
+      "value_text": "3.5",
+      "unit": "",
+      "range": {
+        "low": 0.0,
+        "high": 3.0,
+        "text": "< 3.0"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5832,
+        0.4968,
+        0.5998
+      ]
+    },
+    {
+      "test": "hscrp",
+      "standard_name": "hs-CRP",
+      "printed_name": "hs-CRP",
+      "value": 1.2,
+      "value_text": "1.2",
+      "unit": "mg/L",
+      "range": {
+        "low": 0.0,
+        "high": 3.0,
+        "text": "< 3.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6163,
+        0.4968,
+        0.6328
+      ]
+    },
+    {
+      "test": "homocys",
+      "standard_name": "Homocysteine",
+      "printed_name": "Homocysteine",
+      "value": 12.3,
+      "value_text": "12.3",
+      "unit": "µmol/L",
+      "range": {
+        "low": 5.0,
+        "high": 15.0,
+        "text": "5.0 - 15.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6494,
+        0.5105,
+        0.6659
+      ]
+    },
+    {
+      "test": "lpa",
+      "standard_name": "Lipoprotein(a)",
+      "printed_name": "Lipoprotein (a)",
+      "value": 22.0,
+      "value_text": "22",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 30.0,
+        "text": "< 30"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6824,
+        0.4839,
+        0.699
+      ]
+    },
+    {
+      "test": "ck",
+      "standard_name": "Creatine kinase",
+      "printed_name": "CK (Total)",
+      "value": 91.0,
+      "value_text": "91",
+      "unit": "U/L",
+      "range": {
+        "low": 26.0,
+        "high": 192.0,
+        "text": "26 - 192"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7155,
+        0.4839,
+        0.732
+      ]
+    },
+    {
+      "test": "ldh",
+      "standard_name": "Lactate dehydrogenase",
+      "printed_name": "LDH",
+      "value": 188.0,
+      "value_text": "188",
+      "unit": "U/L",
+      "range": {
+        "low": 140.0,
+        "high": 280.0,
+        "text": "140 - 280"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7486,
+        0.4968,
+        0.7651
+      ]
+    }
+  ]
+}

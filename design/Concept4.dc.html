@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Amma's Health</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;800&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#F2F4F1}
+a{color:#0B6E5F}a:hover{color:#084F45}
+button{font-family:inherit}
+</style>
+</helmet>
+<div style="box-sizing: border-box; min-height: 100vh; background: #F2F4F1; color: #13201A; font-family: 'Schibsted Grotesk', system-ui, sans-serif; font-size: 15px; line-height: 1.5; padding: 32px 24px 48px">
+<div style="max-width: 1312px; margin: 0 auto; display: flex; flex-direction: column; gap: 28px">
+
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<nav aria-label="Screens" style="display: flex; gap: 4px; padding: 4px; background: #E4E9E2; border-radius: 12px">
+<button type="button" onClick="{{goFamily}}" aria-pressed="{{famPressed}}" style="{{famTab}}">Family view</button>
+<button type="button" onClick="{{goHood}}" aria-pressed="{{hoodPressed}}" style="{{hoodTab}}">Under the hood</button>
+</nav>
+<span style="{{runPill}}">{{runText}}</span>
+</div>
+
+<sc-if value="{{isFamily}}" hint-placeholder-val="{{ true }}">
+<div style="display: flex; flex-direction: column; gap: 28px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5951">Sample data · summaries, not medical advice</span>
+<h1 style="margin: 0; font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -0.02em">Amma's health</h1>
+<p style="margin: 0; color: #4A5951">Amrita Hospital · 23 reports across 5 visits · Jan – Sep 2026 · next visit Oct 22</p>
+</div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap">
+<button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #C7D0C5; background: #FFFFFF; color: #13201A; font-size: 15px; font-weight: 600; cursor: pointer">Share with family</button>
+<button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #0B6E5F; background: #0B6E5F; color: #FFFFFF; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="M6 10l6-6 6 6"></path><path d="M4 20h16"></path></svg>Upload report</button>
+</div>
+</header>
+
+<sc-if value="{{pending}}" hint-placeholder-val="{{ true }}">
+<section aria-labelledby="newrep" style="background: #FFFFFF; border: 2px solid #B45309; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: flex-start">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #8A3B07">New report · Sep 12 · phone photo</span>
+<h2 id="newrep" style="margin: 0; font-size: 24px; font-weight: 800">23 values read. 1 needs you before it's saved.</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 6px; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600">
+<span style="border-radius: 6px; padding: 4px 10px; background: #E3F1EC; color: #084F45">✓ Uploaded</span>
+<span style="border-radius: 6px; padding: 4px 10px; background: #E3F1EC; color: #084F45">✓ Read</span>
+<span style="border-radius: 6px; padding: 4px 10px; background: #FDF0E1; color: #8A3B07; border: 1px solid #F2C894">Check · 1 left</span>
+<span style="border-radius: 6px; padding: 4px 10px; background: #ECEFEB; color: #4A5951">Remember</span>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 1 1 340px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 6px; padding: 18px; box-shadow: 0 16px 36px -24px rgba(19,32,26,0.4); transform: rotate(-0.5deg); font-family: 'Spline Sans Mono', monospace; font-size: 13px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: flex; justify-content: space-between; gap: 8px; border-bottom: 2px solid #13201A; padding-bottom: 8px"><span style="font-weight: 600">DEPT. OF BIOCHEMISTRY</span><span style="color: #4A5951">12-09-2026 · p.2</span></div>
+<sc-for list="{{review}}" as="r" hint-placeholder-count="6">
+<div style="{{r.paperStyle}}"><span>{{r.printed}}</span><span style="{{r.valStyle}}">{{r.paperVal}}</span><span style="color: #4A5951">{{r.range}}</span></div>
+</sc-for>
+<span style="color: #4A5951; font-size: 12px">Sample lab report · mock layout</span>
+</div>
+<div style="flex: 1 1 400px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<sc-for list="{{review}}" as="r" hint-placeholder-count="6">
+<div style="{{r.cardStyle}}">
+<button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="width: 100%; min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 0; border: none; background: transparent; cursor: pointer; text-align: left; color: #13201A; font-size: 15px">
+<span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.3"><span style="font-weight: 600">{{r.name}}</span><span style="font-size: 12px; color: #4A5951">printed as "{{r.printed}}"</span></span>
+<span style="font-family: 'Spline Sans Mono', monospace; font-weight: 600; white-space: nowrap">{{r.shown}}</span>
+<span style="{{r.chipStyle}}">{{r.chip}}</span>
+</button>
+<sc-if value="{{r.needsCheck}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #4A5951">The middle digit is smudged. 184 would break her steady downward trend, so it asks instead of guessing.</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" onClick="{{r.confirm}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #0B6E5F; background: #0B6E5F; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">It says 104</button>
+<button type="button" onClick="{{r.confirm}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #C7D0C5; background: #FFFFFF; color: #13201A; font-size: 14px; font-weight: 600; cursor: pointer">It says 184</button>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+</sc-if>
+
+<sc-if value="{{saved}}" hint-placeholder-val="{{ false }}">
+<section style="background: #E3F1EC; border: 1px solid #A9D6C7; border-radius: 16px; padding: 14px 18px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<span style="display: flex; align-items: center; gap: 10px; color: #084F45"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg><span><strong>Sep 12 report saved.</strong> 23 values verified. New reading rule learned and re-tested on her 22 earlier reports: 0 broke.</span></span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" onClick="{{goHood}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #0B6E5F; background: #0B6E5F; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">See how it learned</button>
+<button type="button" onClick="{{reset}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #A9D6C7; background: #FFFFFF; color: #084F45; font-size: 14px; font-weight: 600; cursor: pointer">Replay demo</button>
+</div>
+</section>
+</sc-if>
+
+<section style="display: flex; flex-wrap: wrap; gap: 24px; align-items: stretch">
+<div style="flex: 1 1 400px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap">
+<h2 style="margin: 0; font-size: 20px; font-weight: 800">Her body, from her reports</h2>
+<span style="font-size: 13px; color: #4A5951">Tap an area</span>
+</div>
+<div style="overflow-x: auto">
+<div style="position: relative; width: 400px; height: 520px; margin: 0 auto">
+<svg width="400" height="520" viewBox="0 0 420 560" role="img" aria-label="Outline of a body with six tracked areas" style="position: absolute; left: 0; top: 0">
+<circle cx="200" cy="60" r="32" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></circle>
+<rect x="188" y="90" width="24" height="22" rx="8" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<rect x="150" y="110" width="100" height="200" rx="40" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<rect x="118" y="122" width="26" height="180" rx="13" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<rect x="256" y="122" width="26" height="180" rx="13" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<rect x="158" y="300" width="38" height="230" rx="19" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<rect x="204" y="300" width="38" height="230" rx="19" fill="#E9EDE7" stroke="#C7D0C5" stroke-width="2"></rect>
+<line x1="200" y1="112" x2="252" y2="96" stroke="#AEB8AC" stroke-width="1.5"></line>
+<line x1="186" y1="180" x2="150" y2="168" stroke="#AEB8AC" stroke-width="1.5"></line>
+<line x1="190" y1="246" x2="150" y2="244" stroke="#AEB8AC" stroke-width="1.5"></line>
+<line x1="224" y1="272" x2="296" y2="330" stroke="#AEB8AC" stroke-width="1.5"></line>
+<line x1="270" y1="236" x2="296" y2="214" stroke="#AEB8AC" stroke-width="1.5"></line>
+<line x1="178" y1="440" x2="150" y2="440" stroke="#AEB8AC" stroke-width="1.5"></line>
+<circle cx="200" cy="112" r="7" fill="#6B7780" stroke="#FFFFFF" stroke-width="3"></circle>
+<circle cx="186" cy="180" r="7" fill="#0B6E5F" stroke="#FFFFFF" stroke-width="3"></circle>
+<circle cx="190" cy="246" r="9" fill="#B45309" stroke="#FFFFFF" stroke-width="3"></circle>
+<circle cx="224" cy="272" r="7" fill="#6B7780" stroke="#FFFFFF" stroke-width="3"></circle>
+<circle cx="270" cy="236" r="9" fill="#2B5CB8" stroke="#FFFFFF" stroke-width="3"></circle>
+<circle cx="178" cy="440" r="7" fill="#0B6E5F" stroke="#FFFFFF" stroke-width="3"></circle>
+</svg>
+<sc-for list="{{systems}}" as="s" hint-placeholder-count="6">
+<button type="button" onClick="{{s.pick}}" aria-pressed="{{s.on}}" style="{{s.pillStyle}}"><span style="{{s.dotStyle}}"></span>{{s.short}}</button>
+</sc-for>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #4A5951">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #B45309; display: inline-block"></span>Rising — discuss</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #2B5CB8; display: inline-block"></span>Low — discuss</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #0B6E5F; display: inline-block"></span>Improving</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 10px; height: 10px; border-radius: 999px; background: #6B7780; display: inline-block"></span>Steady</span>
+</div>
+</div>
+
+<article style="flex: 1.35 1 520px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; gap: 18px">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5951">{{d.test}}</span>
+<div style="display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px">
+<h2 style="margin: 0; font-size: 32px; font-weight: 800; letter-spacing: -0.01em">{{d.name}}</h2>
+<span style="{{d.badge}}">{{d.statusText}}</span>
+</div>
+<p style="margin: 0; font-size: 16px; color: #2C3A33; max-width: 62ch">{{d.story}}</p>
+</div>
+<svg viewBox="0 0 600 230" width="100%" role="img" aria-label="{{d.aria}}" style="display: block">
+<rect x="44" y="{{d.bandY}}" width="546" height="{{d.bandH}}" fill="#E3F1EC"></rect>
+<text x="586" y="{{d.bandLabelY}}" text-anchor="end" font-size="11" fill="#084F45" font-family="Spline Sans Mono, monospace">normal range</text>
+<line x1="44" x2="590" y1="{{d.g1}}" y2="{{d.g1}}" stroke="#E4E9E2"></line>
+<line x1="44" x2="590" y1="{{d.g2}}" y2="{{d.g2}}" stroke="#E4E9E2"></line>
+<text x="36" y="{{d.g1t}}" text-anchor="end" font-size="11" fill="#4A5951" font-family="Spline Sans Mono, monospace">{{d.t1}}</text>
+<text x="36" y="{{d.g2t}}" text-anchor="end" font-size="11" fill="#4A5951" font-family="Spline Sans Mono, monospace">{{d.t2}}</text>
+<path d="{{d.line}}" fill="none" stroke="{{d.color}}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+<path d="{{d.dots}}" fill="#FFFFFF" stroke="{{d.color}}" stroke-width="3"></path>
+<path d="{{d.pendingRing}}" fill="#FDF0E1" stroke="#B45309" stroke-width="2" stroke-dasharray="4 3"></path>
+<text x="{{d.lx}}" y="{{d.ly}}" text-anchor="end" font-size="14" font-weight="600" fill="{{d.labelColor}}" font-family="Spline Sans Mono, monospace">{{d.lastLabel}}</text>
+<text x="60" y="224" font-size="12" fill="#4A5951">Jan 8</text>
+<text x="186" y="224" text-anchor="middle" font-size="12" fill="#4A5951">Mar 14</text>
+<text x="316" y="224" text-anchor="middle" font-size="12" fill="#4A5951">May 20</text>
+<text x="446" y="224" text-anchor="middle" font-size="12" fill="#4A5951">Jul 22</text>
+<text x="586" y="224" text-anchor="end" font-size="12" fill="#4A5951">Sep 12</text>
+</svg>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<div style="flex: 1 1 260px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5951">Ask the doctor</h3>
+<sc-for list="{{d.questions}}" as="q" hint-placeholder-count="2">
+<div style="background: #F2F4F1; border-radius: 12px; padding: 10px 14px; font-size: 15px">{{q}}</div>
+</sc-for>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
+<h3 style="margin: 0; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5951">Where this comes from</h3>
+<sc-for list="{{d.sources}}" as="src" hint-placeholder-count="2">
+<a href="#" style="display: flex; align-items: center; gap: 8px; min-height: 44px; border: 1px solid #DCE2DA; border-radius: 12px; padding: 6px 12px; font-size: 14px; text-decoration: none; color: #13201A"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B6E5F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: 0 0 auto"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><path d="M14 3v6h6"></path></svg>{{src}}</a>
+</sc-for>
+</div>
+</div>
+</article>
+</section>
+
+<section aria-labelledby="grid" style="background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 id="grid" style="margin: 0; font-size: 20px; font-weight: 800">Every report, side by side</h2>
+<span style="font-size: 14px; color: #4A5951">One square per value. Colour shows where it sits against the range printed on her report.</span>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: #4A5951">
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 16px; height: 12px; border-radius: 3px; background: #2B5CB8; display: inline-block"></span>Below ↓</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 16px; height: 12px; border-radius: 3px; background: #FFFFFF; border: 1px solid #C7D0C5; display: inline-block"></span>In range</span>
+<span style="display: flex; align-items: center; gap: 6px"><span style="width: 16px; height: 12px; border-radius: 3px; background: #B45309; display: inline-block"></span>Above ↑</span>
+</div>
+</div>
+<div style="overflow-x: auto">
+<div style="min-width: 780px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: grid; grid-template-columns: 190px repeat(5, minmax(0, 1fr)); gap: 8px; font-size: 13px; color: #4A5951">
+<span></span>
+<span style="display: flex; flex-direction: column"><strong style="color: #13201A">Jan 8</strong>Supplements started</span>
+<span style="display: flex; flex-direction: column"><strong style="color: #13201A">Mar 14</strong>"Recheck HbA1c in 2 mo"</span>
+<span style="display: flex; flex-direction: column"><strong style="color: #13201A">May 20</strong>Lab only</span>
+<span style="display: flex; flex-direction: column"><strong style="color: #13201A">Jul 22</strong>Noted mild tiredness</span>
+<span style="display: flex; flex-direction: column"><strong style="color: #13201A">Sep 12 · new</strong>Full panel</span>
+</div>
+<sc-for list="{{rows}}" as="r" hint-placeholder-count="6">
+<div style="display: grid; grid-template-columns: 190px repeat(5, minmax(0, 1fr)); gap: 8px">
+<span style="display: flex; flex-direction: column; justify-content: center; line-height: 1.3"><span style="font-weight: 600">{{r.name}}</span><span style="font-size: 12px; color: #4A5951">{{r.range}}</span></span>
+<sc-for list="{{r.cells}}" as="c" hint-placeholder-count="5">
+<span style="{{c.style}}">{{c.text}}</span>
+</sc-for>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section aria-labelledby="prep" style="background: #13201A; color: #F2F4F1; border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 4px">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #9FD9C8">Ready for the visit</span>
+<h2 id="prep" style="margin: 0; font-size: 28px; font-weight: 800; color: #FFFFFF">Endocrinology · Oct 22</h2>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #3C5247; background: transparent; color: #F2F4F1; font-size: 15px; font-weight: 600; cursor: pointer">Send to sister</button>
+<button type="button" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #9FD9C8; background: #9FD9C8; color: #13201A; font-size: 15px; font-weight: 700; cursor: pointer">Print one page</button>
+</div>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #9FD9C8">Worth watching</h3>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span style="flex: 0 0 auto; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: #F5B26B; color: #13201A">↑ RISING</span><span>HbA1c 7.1%, up in all 5 reports. The doctor asked for a recheck on Mar 14.</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span style="flex: 0 0 auto; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: #8AB4FF; color: #13201A">↓ LOW</span><span>Hemoglobin 10.6 g/dL, below range for the 4th report in a row.</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span style="flex: 0 0 auto; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: #F5B26B; color: #13201A">NEW</span><span>First fasting glucose on file: 138 mg/dL, above the printed 70–100.</span></div>
+<div style="display: flex; gap: 12px; align-items: flex-start"><span style="flex: 0 0 auto; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; border-radius: 6px; padding: 2px 8px; background: #9FD9C8; color: #13201A">GOOD</span><span>Vitamin D 32 ng/mL, in range for the first time this year.</span></div>
+</div>
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 15px; font-weight: 600; color: #9FD9C8">Questions to ask</h3>
+<label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #9FD9C8; flex: 0 0 auto">HbA1c and fasting glucose are both above range now. Does her plan need to change?</label>
+<label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer"><input type="checkbox" checked style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #9FD9C8; flex: 0 0 auto">Hemoglobin has been low four times. Should we look for the cause?</label>
+<label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer"><input type="checkbox" style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #9FD9C8; flex: 0 0 auto">Vitamin D is back in range. Same dose, or lower?</label>
+<label style="display: flex; gap: 10px; align-items: flex-start; cursor: pointer"><input type="checkbox" style="width: 20px; height: 20px; margin: 2px 0 0; accent-color: #9FD9C8; flex: 0 0 auto">The Mar 14 diet review never happened. Should we book it?</label>
+</div>
+</div>
+<p style="margin: 0; font-size: 13px; color: #B7C4BC; border-top: 1px solid #2C3D34; padding-top: 14px">Every line links back to the report it came from. Patterns to discuss with her doctor, not a diagnosis.</p>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 16px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<span style="display: flex; flex-direction: column"><span style="font-weight: 700">How can you trust this?</span><span style="font-size: 14px; color: #4A5951">See which agent did what, how it learned from your answer, and what it isn't allowed to do.</span></span>
+<button type="button" onClick="{{goHood}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #13201A; background: #13201A; color: #FFFFFF; font-size: 15px; font-weight: 600; cursor: pointer">Under the hood →</button>
+</section>
+
+</div>
+</sc-if>
+
+<sc-if value="{{isHood}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; flex-direction: column; gap: 28px">
+
+<header style="display: flex; flex-wrap: wrap; gap: 16px; align-items: flex-end; justify-content: space-between">
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #4A5951">Run 0912-A · MongoDB Atlas Agent Engine · sample data</span>
+<h1 style="margin: 0; font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -0.02em">The harness behind Amma's health</h1>
+<p style="margin: 0; color: #4A5951; max-width: 72ch">The same Sep 12 report, seen from the inside: which agent did what, what it remembered, how it learned, and what it was not allowed to do.</p>
+</div>
+<button type="button" onClick="{{reset}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #C7D0C5; background: #FFFFFF; color: #13201A; font-size: 15px; font-weight: 600; cursor: pointer">Replay run</button>
+</header>
+
+<section aria-labelledby="pipe" style="display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: baseline">
+<h2 id="pipe" style="margin: 0; font-size: 20px; font-weight: 800">1 · Agent pipeline</h2>
+<span style="font-size: 13px; color: #4A5951">Started by a change stream when the photo was uploaded · every step traced</span>
+</div>
+<ol style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px">
+<sc-for list="{{agents}}" as="a" hint-placeholder-count="5">
+<li style="{{a.style}}">
+<div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+<span style="display: flex; align-items: center; gap: 8px"><span style="{{a.numStyle}}">{{a.num}}</span><span style="font-weight: 800">{{a.name}}</span></span>
+<span style="{{a.chipStyle}}">{{a.chip}}</span>
+</div>
+<span style="font-size: 14px">{{a.did}}</span>
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; color: #4A5951">{{a.meta}}</span>
+</li>
+</sc-for>
+</ol>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 1 1 340px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">2 · Reader sees</h2>
+<div style="background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 6px; padding: 20px 18px; box-shadow: 0 18px 40px -24px rgba(19,32,26,0.35); transform: rotate(-0.6deg); font-family: 'Spline Sans Mono', monospace; font-size: 13px; display: flex; flex-direction: column; gap: 10px">
+<div style="display: flex; justify-content: space-between; gap: 8px; border-bottom: 2px solid #13201A; padding-bottom: 10px">
+<span style="display: flex; flex-direction: column"><span style="font-weight: 600; font-size: 14px">DEPT. OF BIOCHEMISTRY</span><span style="color: #4A5951">Sample lab report · mock layout</span></span>
+<span style="text-align: right; color: #4A5951">12-09-2026<br>Page 2 of 4</span>
+</div>
+<sc-for list="{{hrows}}" as="r" hint-placeholder-count="6">
+<div style="{{r.paperStyle}}">
+<span>{{r.printed}}</span>
+<span style="{{r.valStyle}}">{{r.paperVal}}</span>
+<span>{{r.unit}}</span>
+<span style="color: #4A5951">{{r.range}}</span>
+</div>
+</sc-for>
+</div>
+</div>
+
+<div style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">3 · Verifier checks</h2>
+<sc-for list="{{hrows}}" as="r" hint-placeholder-count="6">
+<div style="{{r.cardStyle}}">
+<button type="button" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}" style="width: 100%; min-height: 44px; display: flex; align-items: center; gap: 12px; padding: 0; border: none; background: transparent; cursor: pointer; text-align: left; color: #13201A; font-size: 15px">
+<span style="flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; line-height: 1.3"><span style="font-weight: 600">{{r.name}}</span><span style="font-size: 12px; color: #4A5951">"{{r.printed}}" · {{r.check}}</span></span>
+<span style="font-family: 'Spline Sans Mono', monospace; font-weight: 600; white-space: nowrap">{{r.shown}}</span>
+<span style="{{r.chipStyle}}">{{r.chip}}</span>
+</button>
+<sc-if value="{{r.needsCheck}}" hint-placeholder-val="{{ false }}">
+<span style="font-size: 13px; color: #4A5951">Smudged middle digit. 184 would be a 69% jump from her trend, so the run pauses durably and asks a person.</span>
+<div style="display: flex; flex-wrap: wrap; gap: 8px">
+<button type="button" onClick="{{r.confirm}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #0B6E5F; background: #0B6E5F; color: #FFFFFF; font-size: 14px; font-weight: 600; cursor: pointer">It says 104</button>
+<button type="button" onClick="{{r.confirm}}" style="min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #C7D0C5; background: #FFFFFF; color: #13201A; font-size: 14px; font-weight: 600; cursor: pointer">It says 184</button>
+</div>
+</sc-if>
+</div>
+</sc-for>
+</div>
+
+<div style="flex: 1 1 320px; min-width: 0; display: flex; flex-direction: column; gap: 10px">
+<h2 style="margin: 0; font-size: 18px; font-weight: 800">4 · Memory writes</h2>
+<sc-for list="{{hmemory}}" as="m" hint-placeholder-count="4">
+<div style="{{m.style}}">
+<span style="font-family: 'Spline Sans Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: #0B6E5F">{{m.kind}}</span>
+<span style="font-weight: 600">{{m.title}}</span>
+<span style="font-size: 13px; color: #4A5951">{{m.detail}}</span>
+</div>
+</sc-for>
+</div>
+</section>
+
+<section aria-labelledby="gate" style="background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 16px">
+<div style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-between; align-items: flex-end">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 id="gate" style="margin: 0; font-size: 20px; font-weight: 800">5 · Learning check</h2>
+<span style="font-size: 14px; color: #4A5951">A new reading rule goes live only if it reads her 22 earlier reports at least as well, with zero values that used to be right turning wrong. Correct answers are stored apart and the agents can't see them.</span>
+</div>
+<span style="{{gateBadge}}">{{gateStatus}}</span>
+</div>
+<div style="overflow-x: auto">
+<div style="min-width: 760px; display: flex; flex-direction: column; gap: 8px">
+<div style="display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; padding: 0 14px; font-family: 'Spline Sans Mono', monospace; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: #4A5951">
+<span>Rule version</span><span>Read correctly</span><span>Regressions</span><span>Gate</span>
+</div>
+<sc-for list="{{gate}}" as="g" hint-placeholder-count="3">
+<div style="{{g.rowStyle}}">
+<span style="display: flex; flex-direction: column; line-height: 1.35"><span style="font-weight: 700">{{g.ver}}</span><span style="font-size: 13px; color: #4A5951">{{g.desc}}</span></span>
+<span style="font-family: 'Spline Sans Mono', monospace; font-weight: 600; display: flex; flex-direction: column; line-height: 1.3"><span>{{g.correct}}</span><span style="font-size: 12px; color: #4A5951">{{g.pct}}</span></span>
+<span style="font-size: 14px">{{g.reg}}</span>
+<span><span style="{{g.verdictStyle}}">{{g.verdict}}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+</section>
+
+<section style="display: flex; flex-wrap: wrap; gap: 20px; align-items: stretch">
+<div style="flex: 1 1 420px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 800">6 · Watcher, across weeks</h2>
+<span style="font-size: 14px; color: #4A5951">Follow-ups pulled from the doctor's notes and tracked until they happen. Wakes weekly; next run Oct 18.</span>
+</div>
+<div style="display: flex; flex-direction: column">
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-top: 1px solid #E4E9E2"><span style="font-family: 'Spline Sans Mono', monospace; font-size: 13px; color: #4A5951">Jan 8</span><span style="display: flex; flex-direction: column"><span>"Start vitamin D. Retest in 3 months."</span><span style="font-size: 13px; color: #084F45; font-weight: 600">✓ Retested Mar 14, on time</span></span></div>
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-top: 1px solid #E4E9E2"><span style="font-family: 'Spline Sans Mono', monospace; font-size: 13px; color: #4A5951">Mar 14</span><span style="display: flex; flex-direction: column"><span>"Recheck HbA1c in 2 months."</span><span style="font-size: 13px; color: #084F45; font-weight: 600">✓ Rechecked May 20, on time</span></span></div>
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-top: 1px solid #E4E9E2"><span style="font-family: 'Spline Sans Mono', monospace; font-size: 13px; color: #4A5951">Mar 14</span><span style="display: flex; flex-direction: column"><span>"Diet review suggested."</span><span style="font-size: 13px; color: #8A3B07; font-weight: 600">No record after 211 days → added to Oct 22 questions</span></span></div>
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-top: 1px solid #E4E9E2"><span style="font-family: 'Spline Sans Mono', monospace; font-size: 13px; color: #4A5951">Jul 22</span><span style="display: flex; flex-direction: column"><span>"Mild tiredness. Watch."</span><span style="font-size: 13px; color: #8A3B07; font-weight: 600">Hemoglobin fell again on Sep 12 → linked and flagged</span></span></div>
+<div style="display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 12px 0; border-top: 1px solid #E4E9E2"><span style="font-family: 'Spline Sans Mono', monospace; font-size: 13px; color: #4A5951">Oct 22</span><span style="display: flex; flex-direction: column"><span>Endocrinology visit</span><span style="font-size: 13px; color: #4A5951">Will wake Oct 23 to read the new doctor's note</span></span></div>
+</div>
+</div>
+
+<div style="flex: 1 1 480px; min-width: 0; background: #13201A; color: #F2F4F1; border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; flex-direction: column; gap: 2px">
+<h2 style="margin: 0; font-size: 20px; font-weight: 800; color: #FFFFFF">7 · Governance log</h2>
+<span style="font-size: 14px; color: #B7C4BC">Policies the agents can't switch off. Every event tied to a real identity.</span>
+</div>
+<sc-for list="{{log}}" as="l" hint-placeholder-count="5">
+<div style="display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: 12px; padding: 12px 0; border-top: 1px solid #2C3D34">
+<span><span style="{{l.tagStyle}}">{{l.tag}}</span></span>
+<span style="display: flex; flex-direction: column; gap: 2px"><span>{{l.what}}</span><span style="font-family: 'Spline Sans Mono', monospace; font-size: 12px; color: #B7C4BC">{{l.meta}}</span></span>
+</div>
+</sc-for>
+<p style="margin: 0; font-size: 13px; color: #B7C4BC; border-top: 1px solid #2C3D34; padding-top: 12px">Lab values and doctor's notes are encrypted field by field. Nothing leaves her family's project.</p>
+</div>
+</section>
+
+<section aria-labelledby="atlas" style="display: flex; flex-direction: column; gap: 12px">
+<h2 id="atlas" style="margin: 0; font-size: 20px; font-weight: 800">What runs on MongoDB Atlas</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 10px">
+<div style="flex: 1 1 200px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700">Agent Engine memory</span><span style="font-size: 13px; color: #4A5951">Terms, facts, visits and reading rules: all four types</span></div>
+<div style="flex: 1 1 200px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700">Agent Engine runtime</span><span style="font-size: 13px; color: #4A5951">Traces, durable pause and resume, identity per action</span></div>
+<div style="flex: 1 1 200px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700">Voyage AI retrieval</span><span style="font-size: 13px; color: #4A5951">Finds matching past values, notes and terms</span></div>
+<div style="flex: 1 1 200px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700">Change streams</span><span style="font-size: 13px; color: #4A5951">A new upload starts the run; an answer resumes it</span></div>
+<div style="flex: 1 1 200px; min-width: 0; background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 2px"><span style="font-weight: 700">GridFS</span><span style="font-size: 13px; color: #4A5951">Original report photos and PDFs, kept as proof</span></div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 16px; padding: 16px 20px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between">
+<span style="font-size: 15px">Back to what the family sees.</span>
+<button type="button" onClick="{{goFamily}}" style="min-height: 44px; padding: 0 18px; border-radius: 10px; border: 1px solid #0B6E5F; background: #0B6E5F; color: #FFFFFF; font-size: 15px; font-weight: 600; cursor: pointer">← Family view</button>
+</section>
+
+</div>
+</sc-if>
+
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"startView":{"editor":"enum","options":["family","hood"],"default":"family"},"$preview":{"width":1360,"height":2600}}'>
+class Component extends DCLogic {
+  renderVals() {
+    var self = this;
+    var st = this.state || {};
+    var view = st.view || this.props.startView || 'family';
+    var confirmed = !!st.confirmed;
+    var sel = st.sel || 'sugar';
+    var rsel = st.rsel || 'ldl';
+    var hsel = st.hsel || 'ldl';
+    var teal = '#0B6E5F', amber = '#B45309';
+    var doConfirm = function () { self.setState({ confirmed: true, sel: 'heart', rsel: 'ldl', hsel: 'ldl' }); };
+    var fmt = function (v, d) { return Number(v).toFixed(d); };
+    var chipBase = 'font-family: Spline Sans Mono, monospace; font-size: 12px; font-weight: 600; white-space: nowrap; border-radius: 6px; padding: 2px 8px; ';
+    var chipOk = chipBase + 'background: #E3F1EC; color: #084F45; border: 1px solid #A9D6C7';
+    var chipWait = chipBase + 'background: #FDF0E1; color: #8A3B07; border: 1px solid #F2C894';
+    var chipTodo = chipBase + 'background: #ECEFEB; color: #4A5951; border: 1px solid #DCE2DA';
+    var chipBad = chipBase + 'background: #FBE7E4; color: #8F1D12; border: 1px solid #EDB8B0';
+
+    var tabBase = 'min-height: 44px; padding: 0 18px; border-radius: 9px; border: none; font-size: 15px; font-weight: 600; cursor: pointer; ';
+    var tabOn = tabBase + 'background: #13201A; color: #FFFFFF;';
+    var tabOff = tabBase + 'background: transparent; color: #4A5951;';
+
+    /* ---------- Family view ---------- */
+    var C = { rising: '#B45309', below: '#2B5CB8', improving: '#0B6E5F', steady: '#6B7780' };
+    var label = { rising: 'Rising — discuss', below: 'Low — discuss', improving: 'Improving', steady: 'Steady' };
+    var badgeBg = { rising: '#FDF0E1', below: '#E8EEFB', improving: '#E3F1EC', steady: '#ECEFEB' };
+    var badgeFg = { rising: '#8A3B07', below: '#1E3F82', improving: '#084F45', steady: '#3E4A52' };
+    var ldlSep = confirmed ? 104 : null;
+    var tests = {
+      hba1c: { name: 'HbA1c', unit: '%', lo: 4.0, hi: 5.6, d: 1, vals: [6.1, 6.4, 6.6, 6.9, 7.1] },
+      hgb: { name: 'Hemoglobin', unit: 'g/dL', lo: 12.0, hi: 15.5, d: 1, vals: [11.8, 11.4, 11.1, 10.9, 10.6] },
+      ldl: { name: 'LDL cholesterol', unit: 'mg/dL', lo: 0, hi: 100, d: 0, vals: [132, 124, 118, 109, ldlSep] },
+      creat: { name: 'Creatinine', unit: 'mg/dL', lo: 0.6, hi: 1.1, d: 2, vals: [0.92, 0.95, 0.94, 0.97, 0.96] },
+      tsh: { name: 'TSH', unit: 'mIU/L', lo: 0.4, hi: 4.0, d: 1, vals: [2.1, 2.4, 2.2, 2.6, 2.3] },
+      vitd: { name: 'Vitamin D', unit: 'ng/mL', lo: 30, hi: 100, d: 0, vals: [14, 19, 24, 29, 32] }
+    };
+    var rv = [
+      { id: 'hgb', name: 'Hemoglobin', printed: 'HGB', val: '10.6', unit: 'g/dL', range: '12.0–15.5', flag: 'L', check: 'term matched, fits trend' },
+      { id: 'hba1c', name: 'HbA1c', printed: 'HbA1c', val: '7.1', unit: '%', range: '4.0–5.6', flag: 'H', check: 'fits trend' },
+      { id: 'glu', name: 'Fasting glucose', printed: 'Glucose (F)', val: '138', unit: 'mg/dL', range: '70–100', flag: 'H', check: 'new term learned' },
+      { id: 'creat', name: 'Creatinine', printed: 'S. Creatinine', val: '0.96', unit: 'mg/dL', range: '0.60–1.10', flag: '', check: 'fits trend' },
+      { id: 'ldl', name: 'LDL cholesterol', printed: 'LDL-C', val: '104', unit: 'mg/dL', range: '< 100', flag: 'H', uncertain: true, check: '' },
+      { id: 'vitd', name: 'Vitamin D', printed: '25-OH Vit D', val: '32', unit: 'ng/mL', range: '30–100', flag: '', check: 'fits trend' }
+    ];
+    var review = rv.map(function (r) {
+      var on = r.id === rsel;
+      var chk = r.uncertain && !confirmed;
+      return {
+        name: r.name, printed: r.printed, range: r.range,
+        paperVal: r.val + (r.flag ? ' ' + r.flag : ''),
+        shown: chk ? '1?4 ' + r.unit : r.val + ' ' + r.unit,
+        needsCheck: chk, pressed: on ? 'true' : 'false',
+        chip: chk ? 'Needs you' : 'Verified', chipStyle: chk ? chipWait : chipOk,
+        pick: function () { self.setState({ rsel: r.id }); },
+        confirm: doConfirm,
+        paperStyle: 'display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr); gap: 8px; align-items: center; min-height: 34px; padding: 2px 8px; border-radius: 4px; background: ' + (on ? '#FFF3B8' : 'transparent') + '; outline: ' + (on ? '2px solid #E2B700' : 'none'),
+        valStyle: 'font-weight: 600;' + (chk ? ' filter: blur(1.2px);' : ''),
+        cardStyle: 'display: flex; flex-direction: column; gap: 6px; padding: 8px 14px; border-radius: 12px; background: #FFFFFF; border: ' + (chk ? '2px solid ' + amber : (on ? '2px solid ' + teal : '1px solid #DCE2DA'))
+      };
+    });
+    var sys = [
+      { id: 'thyroid', short: 'Thyroid', name: 'Thyroid', test: 'tsh', status: 'steady', x: 240, y: 70,
+        story: 'TSH has stayed comfortably inside the normal range in all five reports.',
+        questions: ['Is yearly thyroid testing enough now that it has been steady?'],
+        sources: ['Sep 12 · Endocrine lab · p.1', 'Jan 8 · Endocrine lab · p.1'] },
+      { id: 'heart', short: 'Cholesterol', name: 'Cholesterol', test: 'ldl', status: 'improving', x: 20, y: 140,
+        story: confirmed ? 'LDL has come down in every report, from 132 to 104 mg/dL, now just above the 100 limit printed on her reports.' : 'LDL fell in every report from Jan to Jul. The Sep 12 value is waiting for your check before it is added.',
+        questions: ['LDL is close to 100. Is that close enough, or should anything change?'],
+        sources: ['Sep 12 · Lipid profile · p.1', 'Jul 22 · Lipid profile · p.1'] },
+      { id: 'sugar', short: 'Blood sugar', name: 'Blood sugar', test: 'hba1c', status: 'rising', x: 8, y: 212,
+        story: 'HbA1c has gone up in every report since January, from 6.1% to 7.1%. On Mar 14 the doctor asked for a recheck in two months. Her first fasting glucose, 138 mg/dL, is also above range.',
+        questions: ['HbA1c went from 6.1% to 7.1% this year. Does her plan need to change?', 'How often should we test from here?'],
+        sources: ['Sep 12 · Biochemistry · p.2', 'Mar 14 · Doctor note · Endocrinology'] },
+      { id: 'kidneys', short: 'Kidneys', name: 'Kidneys', test: 'creat', status: 'steady', x: 280, y: 290,
+        story: 'Creatinine has stayed between 0.92 and 0.97 mg/dL, inside the normal range every time.',
+        questions: ['Should kidney tests stay on the same schedule?'],
+        sources: ['Sep 12 · Biochemistry · p.3'] },
+      { id: 'blood', short: 'Blood count', name: 'Blood count', test: 'hgb', status: 'below', x: 280, y: 180,
+        story: 'Hemoglobin has been under the normal range on four reports and keeps drifting lower, from 11.8 to 10.6 g/dL. The doctor noted mild tiredness on Jul 22.',
+        questions: ['Hemoglobin has been low four times. Should we look for the cause?', 'Could this be linked to the tiredness noted in July?'],
+        sources: ['Sep 12 · Hematology · p.1', 'Jul 22 · Doctor note · General Medicine'] },
+      { id: 'vitd', short: 'Vitamin D', name: 'Bones & Vitamin D', test: 'vitd', status: 'improving', x: 14, y: 392,
+        story: 'Vitamin D has climbed from 14 to 32 ng/mL since supplements started in January, and is now inside the normal range.',
+        questions: ['Vitamin D is now 32. Should she continue the same dose?'],
+        sources: ['Sep 12 · Biochemistry · p.4', 'Jan 8 · Doctor note · General Medicine'] }
+    ];
+    var systems = sys.map(function (s) {
+      var on = s.id === sel;
+      return {
+        short: s.short, on: on ? 'true' : 'false',
+        pick: function () { self.setState({ sel: s.id }); },
+        pillStyle: 'position: absolute; left: ' + s.x + 'px; top: ' + s.y + 'px; min-height: 44px; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-radius: 999px; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap; color: #13201A; background: ' + (on ? '#E3F1EC' : '#FFFFFF') + '; border: ' + (on ? '2px solid #0B6E5F' : '1px solid #C7D0C5') + '; box-shadow: 0 6px 16px -10px rgba(19,32,26,0.5)',
+        dotStyle: 'width: 10px; height: 10px; border-radius: 999px; display: inline-block; background: ' + C[s.status]
+      };
+    });
+    var s = sys.find(function (x) { return x.id === sel; }) || sys[2];
+    var t = tests[s.test];
+    var vals = t.vals;
+    var known = vals.filter(function (v) { return v !== null; });
+    var vmin = Math.min.apply(null, known), vmax = Math.max.apply(null, known);
+    var lo = vmin, hi = vmax;
+    if (t.lo > vmin * 0.7) lo = Math.min(lo, t.lo);
+    if (t.hi < vmax * 1.35) hi = Math.max(hi, t.hi);
+    var pad = (hi - lo) * 0.18 || 1;
+    var y0 = lo - pad, y1 = hi + pad;
+    var PT = 12, PB = 200;
+    var X = function (i) { return 64 + i * 130; };
+    var Y = function (v) { return PB - (PB - PT) * ((v - y0) / (y1 - y0)); };
+    var pts = [];
+    vals.forEach(function (v, i) { if (v !== null) pts.push([X(i), Y(v)]); });
+    var line = pts.map(function (p, i) { return (i === 0 ? 'M' : 'L') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
+    var dots = pts.map(function (p) { return 'M' + (p[0] - 6).toFixed(1) + ' ' + p[1].toFixed(1) + ' a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0'; }).join(' ');
+    var lastI = vals.length - 1;
+    var isPending = vals[lastI] === null;
+    var py = isPending ? pts[pts.length - 1][1] : 0;
+    var bTop = Math.max(PT, Math.min(PB, Y(t.hi)));
+    var bBot = Math.max(PT, Math.min(PB, Y(t.lo)));
+    var tk = [y1 - (y1 - y0) * 0.2, y0 + (y1 - y0) * 0.2];
+    var tf = function (v) { return Number(v).toFixed(t.d === 0 ? 0 : 1); };
+    var color = C[s.status];
+    var d = {
+      name: s.name, test: t.name + ' · ' + t.unit, story: s.story, statusText: label[s.status],
+      badge: 'font-size: 13px; font-weight: 600; border-radius: 999px; padding: 3px 12px; background: ' + badgeBg[s.status] + '; color: ' + badgeFg[s.status],
+      questions: s.questions, sources: s.sources, color: color, line: line, dots: dots,
+      pendingRing: isPending ? 'M' + (X(lastI) - 9) + ' ' + py.toFixed(1) + ' a9 9 0 1 0 18 0 a9 9 0 1 0 -18 0' : '',
+      bandY: bTop.toFixed(1), bandH: Math.max(0, bBot - bTop).toFixed(1), bandLabelY: (bTop + 14).toFixed(1),
+      g1: Y(tk[0]).toFixed(1), g2: Y(tk[1]).toFixed(1), g1t: (Y(tk[0]) + 4).toFixed(1), g2t: (Y(tk[1]) + 4).toFixed(1),
+      t1: tf(tk[0]), t2: tf(tk[1]),
+      lastLabel: isPending ? 'Sep 12: waiting for your check' : fmt(vals[lastI], t.d) + ' ' + t.unit,
+      labelColor: isPending ? '#8A3B07' : color,
+      lx: (X(lastI) - 14).toFixed(1), ly: ((isPending ? py : Y(vals[lastI])) - 16).toFixed(1),
+      aria: t.name + ', Jan to Sep: ' + vals.map(function (v) { return v === null ? 'pending' : fmt(v, t.d); }).join(', ') + ' ' + t.unit + '. Normal range ' + fmt(t.lo, t.d) + ' to ' + fmt(t.hi, t.d) + '.'
+    };
+    var cellBase = 'display: flex; align-items: center; justify-content: center; min-height: 46px; border-radius: 10px; font-family: Spline Sans Mono, monospace; font-size: 15px; font-weight: 500; ';
+    var rows = ['hba1c', 'hgb', 'ldl', 'vitd', 'creat', 'tsh'].map(function (k) {
+      var tt = tests[k];
+      return {
+        name: tt.name,
+        range: 'normal ' + (tt.lo === 0 ? '< ' + fmt(tt.hi, tt.d) : fmt(tt.lo, tt.d) + '–' + fmt(tt.hi, tt.d)) + ' ' + tt.unit,
+        cells: tt.vals.map(function (v) {
+          if (v === null) return { text: '? check', style: cellBase + 'background: #FDF0E1; color: #8A3B07; border: 2px dashed #B45309' };
+          var sv = v < tt.lo ? 'below' : (v > tt.hi ? 'above' : 'in');
+          var bg = sv === 'below' ? '#2B5CB8' : (sv === 'above' ? '#B45309' : '#FFFFFF');
+          var fg = sv === 'in' ? '#13201A' : '#FFFFFF';
+          var bd = sv === 'in' ? '#DCE2DA' : bg;
+          return { text: fmt(v, tt.d) + (sv === 'below' ? ' ↓' : (sv === 'above' ? ' ↑' : '')), style: cellBase + 'background: ' + bg + '; color: ' + fg + '; border: 1px solid ' + bd };
+        })
+      };
+    });
+
+    /* ---------- Under the hood ---------- */
+    var hrows = rv.map(function (r) {
+      var on = r.id === hsel;
+      var chk = r.uncertain && !confirmed;
+      return {
+        name: r.name, printed: r.printed, unit: r.unit, range: r.range,
+        check: r.uncertain ? (confirmed ? 'confirmed by you' : 'low confidence') : r.check,
+        paperVal: r.val + (r.flag ? ' ' + r.flag : ''),
+        shown: chk ? '1?4 ' + r.unit : r.val + ' ' + r.unit,
+        pressed: on ? 'true' : 'false', needsCheck: chk,
+        chip: chk ? 'Paused' : 'Verified', chipStyle: chk ? chipWait : chipOk,
+        pick: function () { self.setState({ hsel: r.id }); },
+        confirm: doConfirm,
+        paperStyle: 'display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr) minmax(0, 1fr); gap: 8px; align-items: center; min-height: 36px; padding: 4px 8px; border-radius: 4px; background: ' + (on ? '#FFF3B8' : 'transparent') + '; outline: ' + (on ? '2px solid #E2B700' : 'none'),
+        valStyle: 'font-weight: 600;' + (chk ? ' filter: blur(1.2px);' : ''),
+        cardStyle: 'display: flex; flex-direction: column; gap: 6px; padding: 8px 14px; border-radius: 12px; background: #FFFFFF; border: ' + (chk ? '2px solid ' + amber : (on ? '2px solid ' + teal : '1px solid #DCE2DA'))
+      };
+    });
+    var numBase = 'flex: 0 0 auto; width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; font-family: Spline Sans Mono, monospace; font-size: 12px; font-weight: 600; ';
+    var mk = function (n, name, did, meta, state) {
+      var done = state === 'done', wait = state === 'wait';
+      return {
+        num: done ? '✓' : n, name: name, did: did, meta: meta,
+        chip: done ? 'Done' : (wait ? 'Paused · needs a person' : 'Queued'),
+        chipStyle: done ? chipOk : (wait ? chipWait : chipTodo),
+        style: 'flex: 1 1 220px; min-width: 0; display: flex; flex-direction: column; gap: 6px; padding: 14px; border-radius: 14px; ' + (wait ? 'background: #FDF0E1; border: 2px solid ' + amber + ';' : (done ? 'background: #FFFFFF; border: 1px solid #DCE2DA;' : 'background: transparent; border: 1px dashed #C7D0C5;')),
+        numStyle: numBase + (wait ? 'background: ' + amber + '; color: #FFFFFF;' : (done ? 'background: ' + teal + '; color: #FFFFFF;' : 'background: #E4E9E2; color: #4A5951;'))
+      };
+    };
+    var agents = [
+      mk('1', 'Reader', '23 values from 4 photographed pages', '2.8 s · trace ae-71f2', 'done'),
+      mk('2', 'Verifier', confirmed ? '23 of 23 verified · 1 confirmed by you' : '22 verified · 1 below confidence', confirmed ? '0.9 s · resumed after answer' : 'checkpointed · resumes on answer', confirmed ? 'done' : 'wait'),
+      mk('3', 'Memory writer', confirmed ? '11 writes across 4 memory types' : 'Waits for every value to be verified', confirmed ? '0.4 s · trace ae-71f9' : 'nothing written yet', confirmed ? 'done' : 'todo'),
+      mk('4', 'Watcher', '5 follow-ups checked · 2 need attention', 'weekly · next Oct 18', 'done'),
+      mk('5', 'Visit prep', confirmed ? '4 questions drafted · 1 draft blocked' : 'Starts after memory is updated', confirmed ? '1.6 s · trace ae-7203' : 'queued', confirmed ? 'done' : 'todo')
+    ];
+    var mOk = 'background: #FFFFFF; border: 1px solid #DCE2DA; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px';
+    var mWait = 'background: #FDF0E1; border: 1px dashed #F2C894; border-radius: 14px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px';
+    var hmemory = confirmed ? [
+      { kind: 'Facts · semantic', title: '6 current values updated', detail: 'HbA1c 6.9 → 7.1 %, LDL 109 → 104 mg/dL, and 4 more. Old values kept as history.', style: mOk },
+      { kind: 'Visit · episodic', title: 'Sep 12 lab visit saved', detail: 'Linked to the Mar 14 and Jul 22 doctor notes.', style: mOk },
+      { kind: 'Terms · taxonomic', title: '"Glucose (F)" = Fasting glucose', detail: 'Shared across every report format. 42 terms now.', style: mOk },
+      { kind: 'Reading rule · procedural', title: 'Candidate v4 sent to the learning check', detail: 'Built from your answer on LDL. See step 5.', style: mOk }
+    ] : [
+      { kind: 'Facts · semantic', title: 'Held', detail: 'No value is written until all 23 are verified. Her record stays consistent.', style: mWait },
+      { kind: 'Visit · episodic', title: 'Held', detail: 'Will link to the Mar 14 and Jul 22 doctor notes.', style: mWait },
+      { kind: 'Terms · taxonomic', title: '"Glucose (F)" proposed', detail: 'Waiting with the rest of the run.', style: mWait },
+      { kind: 'Reading rule · procedural', title: 'Waiting for your answer', detail: 'Your answer becomes the example for a new rule.', style: mWait }
+    ];
+    var rowBase = 'display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr) minmax(0, 1.4fr) minmax(0, 1fr); gap: 12px; align-items: center; padding: 12px 14px; border-radius: 12px; ';
+    var gate = [
+      { ver: 'v3 · live', desc: 'Current rules for this hospital’s report layouts', correct: '374 / 380', pct: '98.4%', reg: '—', verdict: 'Current', verdictStyle: chipTodo, rowStyle: rowBase + 'background: #F2F4F1;' },
+      { ver: 'v4-alt · proposed by the agent', desc: 'Snap a smudged digit to the value closest to her trend', correct: '377 / 380', pct: '99.2%', reg: '2 values that v3 read right turn wrong', verdict: 'Rejected', verdictStyle: chipBad, rowStyle: rowBase + 'background: #FFFFFF; border: 1px solid #EDB8B0;' },
+      confirmed
+        ? { ver: 'v4 · from your answer', desc: 'Smudged digit + jump over 50% from her trend → ask a person', correct: '380 / 380', pct: '100%', reg: '0', verdict: 'Promoted', verdictStyle: chipOk, rowStyle: rowBase + 'background: #E3F1EC; border: 1px solid #A9D6C7;' }
+        : { ver: 'v4 · waiting', desc: 'Will be built from your answer on LDL', correct: '—', pct: '', reg: '—', verdict: 'Waiting', verdictStyle: chipWait, rowStyle: rowBase + 'background: #FFFFFF; border: 1px dashed #F2C894;' }
+    ];
+    var tagBase = 'display: inline-block; font-family: Spline Sans Mono, monospace; font-size: 11px; font-weight: 600; border-radius: 6px; padding: 2px 8px; color: #13201A; ';
+    var log = [
+      confirmed
+        ? { tag: 'RELEASED', tagStyle: tagBase + 'background: #9FD9C8', what: 'LDL written after you confirmed "104"', meta: 'policy no-uncertain-writes · you · trace ae-71f9' }
+        : { tag: 'HELD', tagStyle: tagBase + 'background: #F5B26B', what: 'LDL "1?4" kept out of her record', meta: 'policy no-uncertain-writes · Verifier · trace ae-71f4' },
+      { tag: 'BLOCKED', tagStyle: tagBase + 'background: #F2A699', what: 'Visit prep drafted "Reduce her vitamin D dose." Rewritten as a question for the doctor.', meta: 'policy summarize-never-treat · Visit prep · trace ae-7203' },
+      { tag: 'DENIED', tagStyle: tagBase + 'background: #F2A699', what: 'Home aide asked to see lab values', meta: 'scope medications-only · aide · Sep 13 08:12' },
+      { tag: 'ALLOWED', tagStyle: tagBase + 'background: #9FD9C8', what: 'Sister opened the HbA1c trend', meta: 'scope family-full · sister · Sep 13 21:40' },
+      { tag: 'REJECTED', tagStyle: tagBase + 'background: #F2A699', what: 'Rule v4-alt failed the learning check', meta: 'policy zero-regressions · learning check · 22 reports' }
+    ];
+
+    var pillBase = 'font-family: Spline Sans Mono, monospace; font-size: 12px; font-weight: 600; border-radius: 999px; padding: 6px 12px; ';
+    return {
+      isFamily: view === 'family', isHood: view === 'hood',
+      famPressed: view === 'family' ? 'true' : 'false', hoodPressed: view === 'hood' ? 'true' : 'false',
+      famTab: view === 'family' ? tabOn : tabOff, hoodTab: view === 'hood' ? tabOn : tabOff,
+      goFamily: function () { self.setState({ view: 'family' }); },
+      goHood: function () { self.setState({ view: 'hood' }); },
+      runText: confirmed ? 'Run 0912-A · complete' : 'Run 0912-A · paused, 1 value needs you',
+      runPill: pillBase + (confirmed ? 'background: #E3F1EC; color: #084F45; border: 1px solid #A9D6C7' : 'background: #FDF0E1; color: #8A3B07; border: 1px solid #F2C894'),
+      pending: !confirmed, saved: confirmed,
+      review: review, systems: systems, d: d, rows: rows,
+      hrows: hrows, agents: agents, hmemory: hmemory, gate: gate, log: log,
+      gateStatus: confirmed ? 'v4 promoted · 0 regressions' : '1 rejected · 1 waiting',
+      gateBadge: (confirmed ? chipOk : chipWait) + '; font-size: 13px; padding: 4px 12px',
+      reset: function () { self.setState({ confirmed: false, sel: 'sugar', rsel: 'ldl', hsel: 'ldl' }); }
+    };
+  }
+}
+</script>
+</body>
+</html>

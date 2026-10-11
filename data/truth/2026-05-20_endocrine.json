@@ -1,0 +1,300 @@
+{
+  "report_key": "2026-05-20_endocrine",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-05-20",
+  "title": "Endocrine lab",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-05-20_endocrine.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-05-20_endocrine_p1.jpg",
+        "transform": {
+          "rotate_deg": 1.9,
+          "keystone": 0.018,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "tsh",
+      "standard_name": "TSH",
+      "printed_name": "TSH",
+      "value": 2.2,
+      "value_text": "2.2",
+      "unit": "mIU/L",
+      "range": {
+        "low": 0.4,
+        "high": 4.0,
+        "text": "0.4 - 4.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "ft4",
+      "standard_name": "Free T4",
+      "printed_name": "Free T4",
+      "value": 1.19,
+      "value_text": "1.19",
+      "unit": "ng/dL",
+      "range": {
+        "low": 0.8,
+        "high": 1.8,
+        "text": "0.80 - 1.80"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5105,
+        0.3683
+      ]
+    },
+    {
+      "test": "ft3",
+      "standard_name": "Free T3",
+      "printed_name": "Free T3",
+      "value": 3.1,
+      "value_text": "3.1",
+      "unit": "pg/mL",
+      "range": {
+        "low": 2.3,
+        "high": 4.2,
+        "text": "2.3 - 4.2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "t4",
+      "standard_name": "Total T4",
+      "printed_name": "Total T4",
+      "value": 7.9,
+      "value_text": "7.9",
+      "unit": "µg/dL",
+      "range": {
+        "low": 5.0,
+        "high": 12.0,
+        "text": "5.0 - 12.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "t3",
+      "standard_name": "Total T3",
+      "printed_name": "Total T3",
+      "value": 114.0,
+      "value_text": "114",
+      "unit": "ng/dL",
+      "range": {
+        "low": 80.0,
+        "high": 200.0,
+        "text": "80 - 200"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4968,
+        0.4675
+      ]
+    },
+    {
+      "test": "hba1c",
+      "standard_name": "HbA1c",
+      "printed_name": "HbA1c",
+      "value": 6.6,
+      "value_text": "6.6",
+      "unit": "%",
+      "range": {
+        "low": 4.0,
+        "high": 5.6,
+        "text": "4.0 - 5.6"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "eag",
+      "standard_name": "Estimated average glucose",
+      "printed_name": "eAG",
+      "value": 143,
+      "value_text": "143",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 117.0,
+        "text": "< 117"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "ppbs",
+      "standard_name": "Postprandial glucose",
+      "printed_name": "Post Prandial Glucose",
+      "value": 178.0,
+      "value_text": "178",
+      "unit": "mg/dL",
+      "range": {
+        "low": 70.0,
+        "high": 140.0,
+        "text": "70 - 140"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4968,
+        0.5667
+      ]
+    },
+    {
+      "test": "fruct",
+      "standard_name": "Fructosamine",
+      "printed_name": "Fructosamine",
+      "value": 273.0,
+      "value_text": "273",
+      "unit": "µmol/L",
+      "range": {
+        "low": 200.0,
+        "high": 285.0,
+        "text": "200 - 285"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5832,
+        0.4968,
+        0.5998
+      ]
+    },
+    {
+      "test": "cortisol",
+      "standard_name": "Cortisol (morning)",
+      "printed_name": "Cortisol (AM)",
+      "value": 11.7,
+      "value_text": "11.7",
+      "unit": "µg/dL",
+      "range": {
+        "low": 6.2,
+        "high": 19.4,
+        "text": "6.2 - 19.4"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6163,
+        0.5105,
+        0.6328
+      ]
+    },
+    {
+      "test": "pth",
+      "standard_name": "Parathyroid hormone",
+      "printed_name": "PTH (Intact)",
+      "value": 62.0,
+      "value_text": "62",
+      "unit": "pg/mL",
+      "range": {
+        "low": 15.0,
+        "high": 65.0,
+        "text": "15 - 65"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6494,
+        0.4839,
+        0.6659
+      ]
+    },
+    {
+      "test": "insulin",
+      "standard_name": "Fasting insulin",
+      "printed_name": "Insulin (Fasting)",
+      "value": 14.9,
+      "value_text": "14.9",
+      "unit": "µIU/mL",
+      "range": {
+        "low": 2.6,
+        "high": 24.9,
+        "text": "2.6 - 24.9"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6824,
+        0.5105,
+        0.699
+      ]
+    },
+    {
+      "test": "cpep",
+      "standard_name": "C-peptide",
+      "printed_name": "C-Peptide",
+      "value": 2.6,
+      "value_text": "2.6",
+      "unit": "ng/mL",
+      "range": {
+        "low": 1.1,
+        "high": 4.4,
+        "text": "1.1 - 4.4"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7155,
+        0.4968,
+        0.732
+      ]
+    }
+  ]
+}

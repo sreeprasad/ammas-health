@@ -1,0 +1,279 @@
+{
+  "report_key": "2026-01-08_urine",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-01-08",
+  "title": "Urine analysis",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-01-08_urine.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-01-08_urine_p1.jpg",
+        "transform": {
+          "rotate_deg": -3.02,
+          "keystone": 0.025,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "u_ph",
+      "standard_name": "Urine pH",
+      "printed_name": "pH",
+      "value": 5.9,
+      "value_text": "5.9",
+      "unit": "",
+      "range": {
+        "low": 5.0,
+        "high": 8.0,
+        "text": "5.0 - 8.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "u_sg",
+      "standard_name": "Urine specific gravity",
+      "printed_name": "Specific Gravity",
+      "value": 0.982,
+      "value_text": "0.982",
+      "unit": "",
+      "range": {
+        "low": 1.005,
+        "high": 1.03,
+        "text": "1.005 - 1.030"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5242,
+        0.3683
+      ]
+    },
+    {
+      "test": "u_pus",
+      "standard_name": "Urine pus cells",
+      "printed_name": "Pus Cells",
+      "value": 2.0,
+      "value_text": "2",
+      "unit": "/hpf",
+      "range": {
+        "low": 0.0,
+        "high": 5.0,
+        "text": "< 5"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4702,
+        0.4014
+      ]
+    },
+    {
+      "test": "u_rbc",
+      "standard_name": "Urine red cells",
+      "printed_name": "RBC (Urine)",
+      "value": 1.0,
+      "value_text": "1",
+      "unit": "/hpf",
+      "range": {
+        "low": 0.0,
+        "high": 2.0,
+        "text": "< 2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4702,
+        0.4344
+      ]
+    },
+    {
+      "test": "u_epi",
+      "standard_name": "Urine epithelial cells",
+      "printed_name": "Epithelial Cells",
+      "value": 2.0,
+      "value_text": "2",
+      "unit": "/hpf",
+      "range": {
+        "low": 0.0,
+        "high": 5.0,
+        "text": "< 5"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4702,
+        0.4675
+      ]
+    },
+    {
+      "test": "u_casts",
+      "standard_name": "Urine casts",
+      "printed_name": "Casts",
+      "value": -0.0,
+      "value_text": "-0",
+      "unit": "/lpf",
+      "range": {
+        "low": 0.0,
+        "high": 2.0,
+        "text": "< 2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4839,
+        0.5006
+      ]
+    },
+    {
+      "test": "u_crystals",
+      "standard_name": "Urine crystals",
+      "printed_name": "Crystals",
+      "value": -0.0,
+      "value_text": "-0",
+      "unit": "/hpf",
+      "range": {
+        "low": 0.0,
+        "high": 2.0,
+        "text": "< 2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4839,
+        0.5336
+      ]
+    },
+    {
+      "test": "u_prot",
+      "standard_name": "Urine protein",
+      "printed_name": "Protein",
+      "value": 7.0,
+      "value_text": "7",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 14.0,
+        "text": "< 14"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4702,
+        0.5667
+      ]
+    },
+    {
+      "test": "u_glu",
+      "standard_name": "Urine glucose",
+      "printed_name": "Glucose (Urine)",
+      "value": 0.0,
+      "value_text": "0",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 15.0,
+        "text": "< 15"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5832,
+        0.4702,
+        0.5998
+      ]
+    },
+    {
+      "test": "u_malb",
+      "standard_name": "Urine microalbumin",
+      "printed_name": "Microalbumin",
+      "value": 18.2,
+      "value_text": "18.2",
+      "unit": "mg/L",
+      "range": {
+        "low": 0.0,
+        "high": 30.0,
+        "text": "< 30.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6163,
+        0.5105,
+        0.6328
+      ]
+    },
+    {
+      "test": "u_creat",
+      "standard_name": "Urine creatinine",
+      "printed_name": "Creatinine (Urine)",
+      "value": 99.0,
+      "value_text": "99",
+      "unit": "mg/dL",
+      "range": {
+        "low": 20.0,
+        "high": 320.0,
+        "text": "20 - 320"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6494,
+        0.4839,
+        0.6659
+      ]
+    },
+    {
+      "test": "u_acr",
+      "standard_name": "Albumin/creatinine ratio",
+      "printed_name": "ACR",
+      "value": 18.4,
+      "value_text": "18.4",
+      "unit": "mg/g",
+      "range": {
+        "low": 0.0,
+        "high": 30.0,
+        "text": "< 30.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6824,
+        0.5105,
+        0.699
+      ]
+    }
+  ]
+}

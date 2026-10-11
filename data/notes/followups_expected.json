@@ -1,0 +1,37 @@
+[
+  {
+    "from_note": "note-2026-01-08",
+    "said_on": "2026-01-08",
+    "text": "Start vitamin D. Retest in 3 months.",
+    "test": "vitd",
+    "due": "2026-04-08"
+  },
+  {
+    "from_note": "note-2026-03-14",
+    "said_on": "2026-03-14",
+    "text": "Recheck HbA1c in 2 months.",
+    "test": "hba1c",
+    "due": "2026-05-14"
+  },
+  {
+    "from_note": "note-2026-03-14",
+    "said_on": "2026-03-14",
+    "text": "Diet review suggested.",
+    "test": null,
+    "due": null
+  },
+  {
+    "from_note": "note-2026-07-22",
+    "said_on": "2026-07-22",
+    "text": "Mild tiredness. Watch.",
+    "test": "hgb",
+    "due": null
+  },
+  {
+    "from_note": "note-2026-05-20",
+    "said_on": "2026-05-20",
+    "text": "Endocrinology review booked for Oct 22.",
+    "test": null,
+    "due": "2026-10-22"
+  }
+]

@@ -1,0 +1,604 @@
+{
+  "report_key": "2026-03-14_biochemistry",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-03-14",
+  "title": "Biochemistry",
+  "pages": 2,
+  "files": {
+    "pdf": "reports/pdf/2026-03-14_biochemistry.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-03-14_biochemistry_p1.jpg",
+        "transform": {
+          "rotate_deg": -2.0,
+          "keystone": 0.029,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      },
+      {
+        "page": 2,
+        "file": "reports/photo/2026-03-14_biochemistry_p2.jpg",
+        "transform": {
+          "rotate_deg": 1.52,
+          "keystone": 0.019,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "urea",
+      "standard_name": "Urea",
+      "printed_name": "Urea",
+      "value": 28.0,
+      "value_text": "28",
+      "unit": "mg/dL",
+      "range": {
+        "low": 15.0,
+        "high": 40.0,
+        "text": "15 - 40"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4839,
+        0.3352
+      ]
+    },
+    {
+      "test": "bun",
+      "standard_name": "Blood urea nitrogen",
+      "printed_name": "BUN",
+      "value": 13.1,
+      "value_text": "13.1",
+      "unit": "mg/dL",
+      "range": {
+        "low": 7.0,
+        "high": 20.0,
+        "text": "7.0 - 20.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5105,
+        0.3683
+      ]
+    },
+    {
+      "test": "creat",
+      "standard_name": "Creatinine",
+      "printed_name": "S. Creatinine",
+      "value": 0.95,
+      "value_text": "0.95",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.6,
+        "high": 1.1,
+        "text": "0.60 - 1.10"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.5105,
+        0.4014
+      ]
+    },
+    {
+      "test": "bun_creat",
+      "standard_name": "BUN/creatinine ratio",
+      "printed_name": "BUN/Creatinine Ratio",
+      "value": 13.8,
+      "value_text": "13.8",
+      "unit": "",
+      "range": {
+        "low": 10.0,
+        "high": 20.0,
+        "text": "10.0 - 20.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.5105,
+        0.4344
+      ]
+    },
+    {
+      "test": "uric",
+      "standard_name": "Uric acid",
+      "printed_name": "S. Uric Acid",
+      "value": 5.2,
+      "value_text": "5.2",
+      "unit": "mg/dL",
+      "range": {
+        "low": 2.4,
+        "high": 6.0,
+        "text": "2.4 - 6.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4968,
+        0.4675
+      ]
+    },
+    {
+      "test": "na",
+      "standard_name": "Sodium",
+      "printed_name": "Na+",
+      "value": 142.0,
+      "value_text": "142",
+      "unit": "mmol/L",
+      "range": {
+        "low": 136.0,
+        "high": 145.0,
+        "text": "136 - 145"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "k",
+      "standard_name": "Potassium",
+      "printed_name": "K+",
+      "value": 4.3,
+      "value_text": "4.3",
+      "unit": "mmol/L",
+      "range": {
+        "low": 3.5,
+        "high": 5.1,
+        "text": "3.5 - 5.1"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "cl",
+      "standard_name": "Chloride",
+      "printed_name": "Cl-",
+      "value": 102.0,
+      "value_text": "102",
+      "unit": "mmol/L",
+      "range": {
+        "low": 98.0,
+        "high": 107.0,
+        "text": "98 - 107"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4968,
+        0.5667
+      ]
+    },
+    {
+      "test": "hco3",
+      "standard_name": "Bicarbonate",
+      "printed_name": "Bicarbonate",
+      "value": 26.0,
+      "value_text": "26",
+      "unit": "mmol/L",
+      "range": {
+        "low": 22.0,
+        "high": 29.0,
+        "text": "22 - 29"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5832,
+        0.4839,
+        0.5998
+      ]
+    },
+    {
+      "test": "ca",
+      "standard_name": "Calcium",
+      "printed_name": "S. Calcium",
+      "value": 9.5,
+      "value_text": "9.5",
+      "unit": "mg/dL",
+      "range": {
+        "low": 8.6,
+        "high": 10.3,
+        "text": "8.6 - 10.3"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6163,
+        0.4968,
+        0.6328
+      ]
+    },
+    {
+      "test": "phos",
+      "standard_name": "Phosphorus",
+      "printed_name": "Phosphorus",
+      "value": 3.7,
+      "value_text": "3.7",
+      "unit": "mg/dL",
+      "range": {
+        "low": 2.5,
+        "high": 4.5,
+        "text": "2.5 - 4.5"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6494,
+        0.4968,
+        0.6659
+      ]
+    },
+    {
+      "test": "mg",
+      "standard_name": "Magnesium",
+      "printed_name": "Magnesium",
+      "value": 2.1,
+      "value_text": "2.1",
+      "unit": "mg/dL",
+      "range": {
+        "low": 1.7,
+        "high": 2.2,
+        "text": "1.7 - 2.2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6824,
+        0.4968,
+        0.699
+      ]
+    },
+    {
+      "test": "egfr",
+      "standard_name": "eGFR",
+      "printed_name": "eGFR (CKD-EPI)",
+      "value": 63,
+      "value_text": "63",
+      "unit": "mL/min/1.73m²",
+      "range": {
+        "low": 60.0,
+        "high": null,
+        "text": "> 60"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7155,
+        0.4839,
+        0.732
+      ]
+    },
+    {
+      "test": "tbil",
+      "standard_name": "Total bilirubin",
+      "printed_name": "T. Bilirubin",
+      "value": 0.67,
+      "value_text": "0.67",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.3,
+        "high": 1.2,
+        "text": "0.30 - 1.20"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7486,
+        0.5105,
+        0.7651
+      ]
+    },
+    {
+      "test": "dbil",
+      "standard_name": "Direct bilirubin",
+      "printed_name": "D. Bilirubin",
+      "value": 0.19,
+      "value_text": "0.19",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 0.3,
+        "text": "< 0.30"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7816,
+        0.5105,
+        0.7982
+      ]
+    },
+    {
+      "test": "ibil",
+      "standard_name": "Indirect bilirubin",
+      "printed_name": "I. Bilirubin",
+      "value": 0.48,
+      "value_text": "0.48",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.2,
+        "high": 0.9,
+        "text": "0.20 - 0.90"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.8147,
+        0.5105,
+        0.8312
+      ]
+    },
+    {
+      "test": "ast",
+      "standard_name": "AST",
+      "printed_name": "SGOT",
+      "value": 25.0,
+      "value_text": "25",
+      "unit": "U/L",
+      "range": {
+        "low": 0.0,
+        "high": 35.0,
+        "text": "< 35"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4839,
+        0.3352
+      ]
+    },
+    {
+      "test": "alt",
+      "standard_name": "ALT",
+      "printed_name": "SGPT",
+      "value": 20.0,
+      "value_text": "20",
+      "unit": "U/L",
+      "range": {
+        "low": 0.0,
+        "high": 35.0,
+        "text": "< 35"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3518,
+        0.4839,
+        0.3683
+      ]
+    },
+    {
+      "test": "ast_alt",
+      "standard_name": "AST/ALT ratio",
+      "printed_name": "AST/ALT Ratio",
+      "value": 1.25,
+      "value_text": "1.25",
+      "unit": "",
+      "range": {
+        "low": 0.0,
+        "high": 2.0,
+        "text": "< 2.00"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.3848,
+        0.5105,
+        0.4014
+      ]
+    },
+    {
+      "test": "alp",
+      "standard_name": "Alkaline phosphatase",
+      "printed_name": "ALP",
+      "value": 96.0,
+      "value_text": "96",
+      "unit": "U/L",
+      "range": {
+        "low": 44.0,
+        "high": 147.0,
+        "text": "44 - 147"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4839,
+        0.4344
+      ]
+    },
+    {
+      "test": "ggt",
+      "standard_name": "Gamma-glutamyl transferase",
+      "printed_name": "Gamma GT",
+      "value": 22.0,
+      "value_text": "22",
+      "unit": "U/L",
+      "range": {
+        "low": 0.0,
+        "high": 38.0,
+        "text": "< 38"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.451,
+        0.4839,
+        0.4675
+      ]
+    },
+    {
+      "test": "tprot",
+      "standard_name": "Total protein",
+      "printed_name": "Total Protein",
+      "value": 6.9,
+      "value_text": "6.9",
+      "unit": "g/dL",
+      "range": {
+        "low": 6.4,
+        "high": 8.3,
+        "text": "6.4 - 8.3"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "alb",
+      "standard_name": "Albumin",
+      "printed_name": "S. Albumin",
+      "value": 4.2,
+      "value_text": "4.2",
+      "unit": "g/dL",
+      "range": {
+        "low": 3.5,
+        "high": 5.2,
+        "text": "3.5 - 5.2"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "glob",
+      "standard_name": "Globulin",
+      "printed_name": "Globulin",
+      "value": 2.7,
+      "value_text": "2.7",
+      "unit": "g/dL",
+      "range": {
+        "low": 2.0,
+        "high": 3.5,
+        "text": "2.0 - 3.5"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4968,
+        0.5667
+      ]
+    },
+    {
+      "test": "ag_ratio",
+      "standard_name": "Albumin/globulin ratio",
+      "printed_name": "A/G Ratio",
+      "value": 1.56,
+      "value_text": "1.56",
+      "unit": "",
+      "range": {
+        "low": 1.0,
+        "high": 2.2,
+        "text": "1.00 - 2.20"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.5832,
+        0.5105,
+        0.5998
+      ]
+    },
+    {
+      "test": "amylase",
+      "standard_name": "Amylase",
+      "printed_name": "Amylase",
+      "value": 63.0,
+      "value_text": "63",
+      "unit": "U/L",
+      "range": {
+        "low": 28.0,
+        "high": 100.0,
+        "text": "28 - 100"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.6163,
+        0.4839,
+        0.6328
+      ]
+    },
+    {
+      "test": "lipase",
+      "standard_name": "Lipase",
+      "printed_name": "Lipase",
+      "value": 34.0,
+      "value_text": "34",
+      "unit": "U/L",
+      "range": {
+        "low": 13.0,
+        "high": 60.0,
+        "text": "13 - 60"
+      },
+      "flag": "",
+      "page": 2,
+      "box": [
+        0.4468,
+        0.6494,
+        0.4839,
+        0.6659
+      ]
+    }
+  ]
+}

@@ -1,0 +1,363 @@
+{
+  "report_key": "2026-07-22_endocrine-vitamins",
+  "synthetic": true,
+  "patient_id": "SYN-0001",
+  "clinic": "Amrut Clinic",
+  "visit_date": "2026-07-22",
+  "title": "Endocrine lab & vitamins",
+  "pages": 1,
+  "files": {
+    "pdf": "reports/pdf/2026-07-22_endocrine-vitamins.pdf",
+    "photos": [
+      {
+        "page": 1,
+        "file": "reports/photo/2026-07-22_endocrine-vitamins_p1.jpg",
+        "transform": {
+          "rotate_deg": -0.9,
+          "keystone": 0.019,
+          "margin_px": 80,
+          "width_px": 1000
+        }
+      }
+    ]
+  },
+  "box_space": "normalized to the clean page, [x0, y0, x1, y1]",
+  "values": [
+    {
+      "test": "tsh",
+      "standard_name": "TSH",
+      "printed_name": "Thyroid Stimulating Hormone",
+      "value": 2.6,
+      "value_text": "2.6",
+      "unit": "mIU/L",
+      "range": {
+        "low": 0.4,
+        "high": 4.0,
+        "text": "0.4 - 4.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3187,
+        0.4968,
+        0.3352
+      ]
+    },
+    {
+      "test": "ft4",
+      "standard_name": "Free T4",
+      "printed_name": "FT4",
+      "value": 1.23,
+      "value_text": "1.23",
+      "unit": "ng/dL",
+      "range": {
+        "low": 0.8,
+        "high": 1.8,
+        "text": "0.80 - 1.80"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3518,
+        0.5105,
+        0.3683
+      ]
+    },
+    {
+      "test": "ft3",
+      "standard_name": "Free T3",
+      "printed_name": "FT3",
+      "value": 3.0,
+      "value_text": "3.0",
+      "unit": "pg/mL",
+      "range": {
+        "low": 2.3,
+        "high": 4.2,
+        "text": "2.3 - 4.2"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.3848,
+        0.4968,
+        0.4014
+      ]
+    },
+    {
+      "test": "t4",
+      "standard_name": "Total T4",
+      "printed_name": "Total T4",
+      "value": 8.1,
+      "value_text": "8.1",
+      "unit": "µg/dL",
+      "range": {
+        "low": 5.0,
+        "high": 12.0,
+        "text": "5.0 - 12.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.4179,
+        0.4968,
+        0.4344
+      ]
+    },
+    {
+      "test": "t3",
+      "standard_name": "Total T3",
+      "printed_name": "Total T3",
+      "value": 118.0,
+      "value_text": "118",
+      "unit": "ng/dL",
+      "range": {
+        "low": 80.0,
+        "high": 200.0,
+        "text": "80 - 200"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.451,
+        0.4968,
+        0.4675
+      ]
+    },
+    {
+      "test": "hba1c",
+      "standard_name": "HbA1c",
+      "printed_name": "A1C",
+      "value": 6.9,
+      "value_text": "6.9",
+      "unit": "%",
+      "range": {
+        "low": 4.0,
+        "high": 5.6,
+        "text": "4.0 - 5.6"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.484,
+        0.4968,
+        0.5006
+      ]
+    },
+    {
+      "test": "eag",
+      "standard_name": "Estimated average glucose",
+      "printed_name": "eAG",
+      "value": 151,
+      "value_text": "151",
+      "unit": "mg/dL",
+      "range": {
+        "low": 0.0,
+        "high": 117.0,
+        "text": "< 117"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5171,
+        0.4968,
+        0.5336
+      ]
+    },
+    {
+      "test": "ppbs",
+      "standard_name": "Postprandial glucose",
+      "printed_name": "PPBS",
+      "value": 184.0,
+      "value_text": "184",
+      "unit": "mg/dL",
+      "range": {
+        "low": 70.0,
+        "high": 140.0,
+        "text": "70 - 140"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5502,
+        0.4968,
+        0.5667
+      ]
+    },
+    {
+      "test": "fruct",
+      "standard_name": "Fructosamine",
+      "printed_name": "Fructosamine",
+      "value": 286.0,
+      "value_text": "286",
+      "unit": "µmol/L",
+      "range": {
+        "low": 200.0,
+        "high": 285.0,
+        "text": "200 - 285"
+      },
+      "flag": "H",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.5832,
+        0.4968,
+        0.5998
+      ]
+    },
+    {
+      "test": "cortisol",
+      "standard_name": "Cortisol (morning)",
+      "printed_name": "Cortisol (AM)",
+      "value": 11.8,
+      "value_text": "11.8",
+      "unit": "µg/dL",
+      "range": {
+        "low": 6.2,
+        "high": 19.4,
+        "text": "6.2 - 19.4"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6163,
+        0.5105,
+        0.6328
+      ]
+    },
+    {
+      "test": "pth",
+      "standard_name": "Parathyroid hormone",
+      "printed_name": "PTH (Intact)",
+      "value": 55.0,
+      "value_text": "55",
+      "unit": "pg/mL",
+      "range": {
+        "low": 15.0,
+        "high": 65.0,
+        "text": "15 - 65"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6494,
+        0.4839,
+        0.6659
+      ]
+    },
+    {
+      "test": "insulin",
+      "standard_name": "Fasting insulin",
+      "printed_name": "Insulin (Fasting)",
+      "value": 15.9,
+      "value_text": "15.9",
+      "unit": "µIU/mL",
+      "range": {
+        "low": 2.6,
+        "high": 24.9,
+        "text": "2.6 - 24.9"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.6824,
+        0.5105,
+        0.699
+      ]
+    },
+    {
+      "test": "cpep",
+      "standard_name": "C-peptide",
+      "printed_name": "C-Peptide",
+      "value": 2.5,
+      "value_text": "2.5",
+      "unit": "ng/mL",
+      "range": {
+        "low": 1.1,
+        "high": 4.4,
+        "text": "1.1 - 4.4"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7155,
+        0.4968,
+        0.732
+      ]
+    },
+    {
+      "test": "vitd",
+      "standard_name": "Vitamin D",
+      "printed_name": "25-Hydroxy Vitamin D",
+      "value": 29,
+      "value_text": "29",
+      "unit": "ng/mL",
+      "range": {
+        "low": 30.0,
+        "high": 100.0,
+        "text": "30 - 100"
+      },
+      "flag": "L",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7486,
+        0.4839,
+        0.7651
+      ]
+    },
+    {
+      "test": "b12",
+      "standard_name": "Vitamin B12",
+      "printed_name": "B12",
+      "value": 284.0,
+      "value_text": "284",
+      "unit": "pg/mL",
+      "range": {
+        "low": 200.0,
+        "high": 900.0,
+        "text": "200 - 900"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.7816,
+        0.4968,
+        0.7982
+      ]
+    },
+    {
+      "test": "folate",
+      "standard_name": "Folate",
+      "printed_name": "Folate",
+      "value": 7.3,
+      "value_text": "7.3",
+      "unit": "ng/mL",
+      "range": {
+        "low": 3.0,
+        "high": 17.0,
+        "text": "3.0 - 17.0"
+      },
+      "flag": "",
+      "page": 1,
+      "box": [
+        0.4468,
+        0.8147,
+        0.4968,
+        0.8312
+      ]
+    }
+  ]
+}
