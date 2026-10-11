@@ -1,8 +1,10 @@
 import { connection } from "next/server";
+import { authorize } from "@/lib/access";
 import { getFamily } from "@/lib/family";
-import { getDb } from "@/lib/mongo";
 
-export async function GET() {
+export async function GET(request: Request) {
   await connection();
-  return Response.json(await getFamily(await getDb()));
+  const access = await authorize(request, "labs", "see lab values");
+  if (access instanceof Response) return access;
+  return Response.json(await getFamily(access.db, access.member.member_id));
 }

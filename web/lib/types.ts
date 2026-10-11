@@ -60,6 +60,7 @@ export type WatchItem = { tag: "RISING" | "LOW" | "NEW" | "GOOD"; text: string }
 
 export type Family = {
   clinic: string;
+  viewer: string;
   subtitle: string;
   nextVisit: { department: string; label: string } | null;
   run: RunState;
@@ -70,5 +71,6 @@ export type Family = {
   saved: { dayLabel: string; verified: number; learned: { version: string; regressions: number } | null } | null;
   watch: WatchItem[];
   questions: string[];
+  prepDraftedAt: string | null;
   updatedAt: string;
 };

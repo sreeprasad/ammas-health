@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pipeline import memory, writer  # noqa: E402
+from pipeline import memory, notes, writer  # noqa: E402
 from pipeline.db import get_db  # noqa: E402
 from pipeline.verifier import RULE_V3  # noqa: E402
 
@@ -24,7 +24,7 @@ def main() -> None:
     for when in visits:
         day = when.date().isoformat()
         report_ids = db.reports.distinct("_id", {"source": "seed", "report_date": when})
-        note = db.notes.find_one({"date": day})
+        note = notes.note_on(db, day)
         title = f"{note['department']} visit {day}" if note else f"Lab visit {day}"
         writer.remember_visit(db, mem, day, title, writer.visit_content(db, report_ids, note),
                               ["visit", "doctor-note"] if note else ["visit"], run_id=None)

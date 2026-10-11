@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pipeline import checkpoints, recorder, run  # noqa: E402
+from pipeline import checkpoints, recorder, run, watcher  # noqa: E402
 from pipeline.db import get_db  # noqa: E402
 from worker import agent_client  # noqa: E402
 
@@ -55,18 +55,31 @@ def sweep(db) -> None:
         handle_answer(db, answer)
 
 
+def run_watcher(db, trigger: str) -> None:
+    out = watcher.run(db, trigger=trigger)
+    log.info("watcher (%s): %d checked, %d need attention, next run %s", trigger, out["checked"], out["need_attention"],
+             out["next_run"].isoformat())
+
+
 def main() -> None:
     db = get_db()
     sweep(db)
-    watch = [{"$match": {"operationType": "insert", "ns.coll": {"$in": ["reports", "answers"]}}}]
-    log.info("watching reports and answers (%s)", "agent: " + agent_client.invoke_url() if agent_client.invoke_url() else "local")
-    with db.watch(watch) as stream:
-        for change in stream:
+    watch = [{"$match": {"operationType": "insert", "ns.coll": {"$in": ["reports", "answers", "watcher_jobs"]}}}]
+    log.info("watching reports, answers and watcher jobs (%s)", "agent: " + agent_client.invoke_url() if agent_client.invoke_url() else "local")
+    with db.watch(watch, max_await_time_ms=30000) as stream:
+        while stream.alive:
+            change = stream.try_next()
+            if change is None:
+                if watcher.due(db):
+                    run_watcher(db, "schedule")
+                continue
             doc = change["fullDocument"]
             try:
                 if change["ns"]["coll"] == "reports" and doc.get("status") == "uploaded":
                     log.info("new report %s", doc["_id"])
                     start_report(db, doc["_id"])
+                elif change["ns"]["coll"] == "watcher_jobs":
+                    run_watcher(db, f"run now by {doc.get('requested_by', 'unknown')}")
                 elif change["ns"]["coll"] == "answers" and doc.get("via") != "agent-engine-resume":
                     log.info("answer for run %s", doc["run_id"])
                     handle_answer(db, doc)

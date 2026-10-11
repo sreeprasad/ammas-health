@@ -68,7 +68,7 @@ def main() -> int:
 
     files = [("files", (Path(p["file"]).name, (ROOT / "data" / p["file"]).read_bytes(), "image/jpeg"))
              for p in truth["files"]["photos"]]
-    response = requests.post(f"{WEB}/api/upload", files=files,
+    response = requests.post(f"{WEB}/api/upload", files=files, headers={"x-member-id": "sreeprasad"},
                              data={"member_id": "sreeprasad", "report_key": truth["report_key"]}, timeout=60)
     check(response.status_code == 201, f"upload API -> {response.status_code}")
     report_id = ObjectId(response.json()["report_id"])

@@ -13,6 +13,7 @@ import {
   type Note,
   type StoryContext,
 } from "./areas";
+import { getNotes } from "./notes";
 import type { Area, Family, PendingReport, Point, Review, RunState, Series, Source, Visit, WatchItem } from "./types";
 
 const CLINIC = "Amrut Clinic";
@@ -53,10 +54,10 @@ function digitPosition(valueText: string): string {
   return "middle";
 }
 
-export async function getFamily(db: Db): Promise<Family> {
+export async function getFamily(db: Db, viewer: string): Promise<Family> {
   const [reports, notesRaw] = await Promise.all([
     db.collection("reports").find({ report_date: { $exists: true } }, { projection: { pages: 1, report_date: 1, source: 1, title: 1, run_id: 1 } }).toArray(),
-    db.collection("notes").find({}).toArray(),
+    getNotes(db),
   ]);
   const notes: Note[] = notesRaw.map((n) => ({ day: n.date, label: dayLabel(n.date), department: n.department, text: n.text }));
 
@@ -92,7 +93,7 @@ export async function getFamily(db: Db): Promise<Family> {
     const title = report?.source === "upload" ? pageTitles[String(doc.page)] ?? "Lab report" : report?.title ?? "Lab report";
     return {
       label: `${dayLabel(isoDay(doc.report_date))} · ${title} · p.${doc.page}`,
-      href: page ? `/api/originals/${String(page.file_id)}` : null,
+      href: page ? `/api/originals/${String(page.file_id)}?as=${encodeURIComponent(viewer)}` : null,
     };
   };
 
@@ -233,7 +234,13 @@ export async function getFamily(db: Db): Promise<Family> {
     watch.splice(2, 0, { tag: "NEW", text: `First ${f.name} on file: ${withUnit(f.valueText, f.unit)}, above the printed ${f.range}.` });
   }
 
-  const questions = areas.filter((a) => a.status !== "steady").map((a) => a.questions[0]).filter(Boolean);
+  const prep = await db.collection("visit_prep").findOne({}, { sort: { at: -1 } });
+  const questions = prep
+    ? (prep.questions as { text: string }[]).map((q) => q.text)
+    : areas.filter((a) => a.status !== "steady").map((a) => a.questions[0]).filter(Boolean);
+  if (prep) {
+    watch.splice(0, watch.length, ...(prep.worth_watching as { tag: WatchItem["tag"]; text: string }[]).map((w) => ({ tag: w.tag, text: w.text })));
+  }
 
   const booked = notes.map((n) => ({ n, m: n.text.match(/review booked for ([A-Z][a-z]{2} \d{1,2})/) })).find((x) => x.m);
   const nextVisit = booked?.m ? { department: booked.n.department, label: booked.m[1] } : null;
@@ -247,6 +254,7 @@ export async function getFamily(db: Db): Promise<Family> {
 
   return {
     clinic: CLINIC,
+    viewer,
     subtitle,
     nextVisit,
     run: runState(run, latestUpload, waitingDocs.length),
@@ -257,6 +265,7 @@ export async function getFamily(db: Db): Promise<Family> {
     saved,
     watch,
     questions,
+    prepDraftedAt: prep ? (prep.at as Date).toISOString() : null,
     updatedAt: new Date().toISOString(),
   };
 }

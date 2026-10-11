@@ -3,7 +3,7 @@
 import { useState } from "react";
 import type { PendingReport, Review } from "@/lib/types";
 
-function PaperView({ row, isoDay }: { row: Review; isoDay: string }) {
+function PaperView({ row, isoDay, viewer }: { row: Review; isoDay: string; viewer: string }) {
   const [y, m, d] = isoDay.split("-");
   return (
     <div
@@ -32,7 +32,7 @@ function PaperView({ row, isoDay }: { row: Review; isoDay: string }) {
       {row.fileId ? (
         <div style={{ position: "relative", lineHeight: 0 }}>
           {/* eslint-disable-next-line @next/next/no-img-element -- a GridFS original, served as-is */}
-          <img src={`/api/originals/${row.fileId}`} alt={`Page ${row.page} of the uploaded report`} style={{ width: "100%", height: "auto", borderRadius: 4 }} />
+          <img src={`/api/originals/${row.fileId}?as=${encodeURIComponent(viewer)}`} alt={`Page ${row.page} of the uploaded report`} style={{ width: "100%", height: "auto", borderRadius: 4 }} />
           {row.box && (
             <span
               aria-hidden="true"
@@ -61,9 +61,11 @@ function PaperView({ row, isoDay }: { row: Review; isoDay: string }) {
 
 export default function NewReportBanner({
   pending,
+  viewer,
   onAnswer,
 }: {
   pending: PendingReport;
+  viewer: string;
   onAnswer: (valueId: string, value: number) => Promise<void>;
 }) {
   const firstWaiting = pending.review.find((r) => r.needsCheck) ?? pending.review[0];
@@ -100,7 +102,7 @@ export default function NewReportBanner({
         </div>
       </div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 20, alignItems: "flex-start" }}>
-        {row && <PaperView row={row} isoDay={pending.isoDay} />}
+        {row && <PaperView row={row} isoDay={pending.isoDay} viewer={viewer} />}
         <div style={{ flex: "1 1 400px", minWidth: 0, display: "flex", flexDirection: "column", gap: 8 }}>
           {pending.review.map((r) => {
             const on = r.valueId === row?.valueId;

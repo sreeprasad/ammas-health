@@ -12,6 +12,7 @@ from gridfs import GridFSBucket
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+from pipeline import notes as notes_store  # noqa: E402
 from pipeline.db import get_db  # noqa: E402
 
 DATA = Path(__file__).resolve().parent.parent / "data"
@@ -66,7 +67,8 @@ def main() -> None:
         values += len(truth["values"])
     db.notes.delete_many({})
     notes = [json.loads(p.read_text()) for p in sorted((DATA / "notes").glob("note-*.json"))]
-    db.notes.insert_many([{**n, "created_at": now} for n in notes])
+    for n in notes:
+        notes_store.store(db, {**n, "created_at": now})
     db.notes.create_index("date")
     print(f"history: {reports} reports, {values} verified values, originals in GridFS, {len(notes)} doctor notes")
 

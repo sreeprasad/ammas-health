@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from bson import ObjectId
 from pymongo.database import Database
 
-from pipeline import checkpoints, memory, reader, recorder, rules, verifier, writer
+from pipeline import checkpoints, memory, notes, reader, recorder, rules, verifier, writer
 
 
 def _report_date(reading: dict, report: dict) -> datetime:
@@ -76,7 +76,7 @@ def advance(db: Database, run_id: ObjectId) -> str:
             step = "visit"
             started = checkpoints.begin_step(db, run_id, step)
             visit_date = report_date.date().isoformat()
-            note = db.notes.find_one({"date": visit_date})
+            note = notes.note_on(db, visit_date)
             writer.remember_visit(db, mem, visit_date, f"Lab visit {visit_date}",
                                   writer.visit_content(db, [report["_id"]], note), ["lab-visit"], run_id)
             checkpoints.save_step(db, run_id, step, {"visit_date": visit_date}, started, f"episode saved for {visit_date}")

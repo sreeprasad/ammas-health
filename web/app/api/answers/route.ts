@@ -1,5 +1,5 @@
 import { ObjectId } from "mongodb";
-import { getDb } from "@/lib/mongo";
+import { authorize } from "@/lib/access";
 
 export async function POST(request: Request) {
   const body = await request.json().catch(() => null);
@@ -11,11 +11,9 @@ export async function POST(request: Request) {
   if (typeof value !== "number" || !Number.isFinite(value)) {
     return Response.json({ error: "value must be a number" }, { status: 400 });
   }
-  if (typeof member_id !== "string" || !member_id) {
-    return Response.json({ error: "member_id is required" }, { status: 400 });
-  }
-
-  const db = await getDb();
+  const access = await authorize(request, "write", "confirm a lab value", typeof member_id === "string" ? member_id : null);
+  if (access instanceof Response) return access;
+  const { db, member } = access;
   const pending = await db.collection("values").findOne({ _id: new ObjectId(value_id), status: "needs_person" });
   if (!pending) return Response.json({ error: "no value waiting for an answer" }, { status: 409 });
   if (String(pending.run_id) !== run_id) return Response.json({ error: "value belongs to a different run" }, { status: 409 });
@@ -25,14 +23,14 @@ export async function POST(request: Request) {
     run_id: new ObjectId(run_id),
     value_id: new ObjectId(value_id),
     value,
-    member_id,
+    member_id: member.member_id,
     at: now,
     applied: false,
   });
   await db.collection("audit_log").insertOne({
     at: now,
     event: "ANSWERED",
-    actor: member_id,
+    actor: member.member_id,
     what: `${pending.printed_name} confirmed as ${value}`,
     run_id: new ObjectId(run_id),
   });

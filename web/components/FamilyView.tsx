@@ -8,12 +8,16 @@ import NewReportBanner from "./NewReportBanner";
 import ReportGrid from "./ReportGrid";
 import VisitPrep from "./VisitPrep";
 
+export type Denied = { status: number; lines: { date: string; department: string; line: string }[] };
+
 export default function FamilyView({
   family,
+  denied,
   onAnswer,
   goHood,
 }: {
   family: Family | null;
+  denied: Denied | null;
   onAnswer: (runId: string, valueId: string, value: number) => Promise<void>;
   goHood: () => void;
 }) {
@@ -26,7 +30,7 @@ export default function FamilyView({
         <div>
           <span className="eyebrow">Sample data · summaries, not medical advice</span>
           <h1>Amma&apos;s health</h1>
-          <p className="lede">{family?.subtitle ?? "Loading her reports…"}</p>
+          <p className="lede">{family?.subtitle ?? (denied ? "Amrut Clinic · access limited for this viewer" : "Loading her reports…")}</p>
         </div>
         <div className="actions">
           <button type="button" className="btn">
@@ -43,10 +47,31 @@ export default function FamilyView({
         </div>
       </header>
 
+      {denied && (
+        <section className="card fade-in" style={{ padding: 24, display: "flex", flexDirection: "column", gap: 12, border: "2px solid #2B5CB8" }}>
+          <span className="eyebrow" style={{ color: "#1E3F82" }}>
+            Your access · medications only
+          </span>
+          <h2 className="h2">Lab values are not shared with this viewer.</h2>
+          <p className="muted" style={{ margin: 0 }}>
+            The request was denied and logged. Here is what this role can see:
+          </p>
+          {denied.lines.map((l) => (
+            <div key={`${l.date}-${l.line}`} style={{ background: "#F2F4F1", borderRadius: 12, padding: "10px 14px" }}>
+              <span className="mono muted" style={{ fontSize: 12 }}>
+                {l.date} · {l.department}
+              </span>
+              <div>{l.line}</div>
+            </div>
+          ))}
+        </section>
+      )}
+
       {family?.pending && (
         <NewReportBanner
           key={family.pending.runId}
           pending={family.pending}
+          viewer={family.viewer}
           onAnswer={(valueId, value) => onAnswer(family.pending!.runId, valueId, value)}
         />
       )}

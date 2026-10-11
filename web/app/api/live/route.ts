@@ -1,11 +1,13 @@
 import { connection } from "next/server";
-import { getDb } from "@/lib/mongo";
+import { authorize } from "@/lib/access";
 
 const WATCHED = ["values", "runs", "reports", "answers"];
 
 export async function GET(request: Request) {
   await connection();
-  const db = await getDb();
+  const access = await authorize(request, "labs", "follow live lab updates");
+  if (access instanceof Response) return access;
+  const { db } = access;
   const changes = db.watch([{ $match: { "ns.coll": { $in: WATCHED } } }], { fullDocument: "default" });
   const encoder = new TextEncoder();
 
