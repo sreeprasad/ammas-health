@@ -1,9 +1,72 @@
 .env
 .env.*
 !.env.example
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.p12
+*.crt
+secrets/
+credentials*.json
+service-account*.json
+*master_key*
+*.keyfile
+
+# ---- Python ----
 __pycache__/
-*.pyc
+*.py[cod]
+*.egg-info/
 .venv/
+venv/
+env/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# ---- Node / Next.js ----
 node_modules/
 .next/
+out/
+build/
+dist/
+.vercel/
+.turbo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.tsbuildinfo
+next-env.d.ts
+
+# ---- Agent Engine / Docker local state ----
+.agentengine/
+.docker/
+*.log
+logs/
+
+# ---- Caches and local data ----
+.cache/
+tmp/
+*.sqlite
+*.db
+
+# ---- Demo recordings (upload these to YouTube/Drive instead) ----
+*.mov
+*.mp4
+
+# ---- OS / editor ----
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+
+PLAN.md
+KICKOFF.md
+DEMO.md
