@@ -12,20 +12,23 @@ framework: langgraph
 # Set memory to true to enable long-term profile memory; VOYAGE_API_KEY must be
 # present in .env when memory is enabled.
 features:
-    durable_workflow: true
-    memory: true
+  durable_workflow: true
+  memory: true
 # Tool placement and pass-through secrets. This template's tools are all
 # remote-capable, so they run in the tool sandbox.
 sandboxes:
-    agent:
-        secrets: ["*"]
-        tools: []
-    tool:
-        secrets: ["*"]
-        tools:
-            - get_current_date
+  agent:
+    secrets: ["*"]
+    tools: []
+  tool:
+    secrets: ["*"]
+    tools:
+      - get_current_date
 version: 0.1.0
 network:
-    egress:
-        - fqdn: api.anthropic.com
-          ports: [443]
+  egress:
+    - fqdn: api.anthropic.com
+      ports: [443]
+    - fqdn: generativelanguage.googleapis.com
+      ports: [443]
+  egress_mode: allow_list

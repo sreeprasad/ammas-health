@@ -1,6 +1,7 @@
 """Watch Atlas for new reports and answers, and advance their runs.
 
 On start it sweeps for work missed while it was down, then follows change streams.
+With AGENT_INVOKE_URL set, runs go to the amma-harness agent on Agent Engine; otherwise they run here.
 """
 
 import logging
@@ -11,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from pipeline import checkpoints, run  # noqa: E402
 from pipeline.db import get_db  # noqa: E402
+from worker import agent_client  # noqa: E402
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | worker | %(message)s")
 log = logging.getLogger(__name__)
@@ -23,26 +25,38 @@ def handle(db, run_id) -> None:
 
 def start_report(db, report_id) -> None:
     db.reports.update_one({"_id": report_id, "status": "uploaded"}, {"$set": {"status": "processing"}})
+    if agent_client.invoke_url():
+        log.info("report %s -> agent: %s", report_id, agent_client.start(db, report_id))
+        return
     handle(db, checkpoints.start_run(db, report_id)["_id"])
+
+
+def handle_answer(db, answer) -> None:
+    if agent_client.invoke_url():
+        status = agent_client.resume(db, answer["run_id"], answer["value"])
+        log.info("answer for run %s -> agent: %s", answer["run_id"], status)
+        return
+    handle(db, answer["run_id"])
 
 
 def sweep(db) -> None:
     for report in db.reports.find({"status": {"$in": ["uploaded", "processing"]}}):
         log.info("sweep: report %s", report["_id"])
         start_report(db, report["_id"])
-    for r in db.runs.find({"status": "running"}):
-        log.info("sweep: unfinished run %s", r["_id"])
-        handle(db, r["_id"])
-    for run_id in db.answers.distinct("run_id", {"applied": {"$ne": True}}):
-        log.info("sweep: answers waiting for run %s", run_id)
-        handle(db, run_id)
+    if not agent_client.invoke_url():
+        for r in db.runs.find({"status": "running"}):
+            log.info("sweep: unfinished run %s", r["_id"])
+            handle(db, r["_id"])
+    for answer in db.answers.find({"applied": {"$ne": True}}):
+        log.info("sweep: answer waiting for run %s", answer["run_id"])
+        handle_answer(db, answer)
 
 
 def main() -> None:
     db = get_db()
     sweep(db)
     watch = [{"$match": {"operationType": "insert", "ns.coll": {"$in": ["reports", "answers"]}}}]
-    log.info("watching reports and answers")
+    log.info("watching reports and answers (%s)", "agent: " + agent_client.invoke_url() if agent_client.invoke_url() else "local")
     with db.watch(watch) as stream:
         for change in stream:
             doc = change["fullDocument"]
@@ -50,9 +64,9 @@ def main() -> None:
                 if change["ns"]["coll"] == "reports" and doc.get("status") == "uploaded":
                     log.info("new report %s", doc["_id"])
                     start_report(db, doc["_id"])
-                elif change["ns"]["coll"] == "answers":
+                elif change["ns"]["coll"] == "answers" and doc.get("via") != "agent-engine-resume":
                     log.info("answer for run %s", doc["run_id"])
-                    handle(db, doc["run_id"])
+                    handle_answer(db, doc)
             except Exception:
                 log.exception("step failed; the run keeps its checkpoint")
 

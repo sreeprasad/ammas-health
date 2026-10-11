@@ -81,6 +81,13 @@ def main() -> int:
         worker.kill()
         return 1
 
+    if os.environ.get("AGENT_INVOKE_URL"):
+        deadline = time.time() + 60
+        while time.time() < deadline and (db.runs.find_one({"_id": run["_id"]}).get("agent") or {}).get("status") != "suspended":
+            time.sleep(1)
+        agent = db.runs.find_one({"_id": run["_id"]}).get("agent") or {}
+        check(agent.get("status") == "suspended", f"Agent Engine execution {agent.get('execution_id')} suspended")
+
     rows = list(db["values"].find({"report_id": report_id}))
     verified = [r for r in rows if r["status"] == "verified"]
     pending = [r for r in rows if r["status"] == "needs_person"]
@@ -102,11 +109,19 @@ def main() -> int:
     check(db.runs.find_one({"_id": run["_id"]})["status"] == "paused", "run still paused with no worker")
 
     worker = start_worker()
-    run = wait_for(db, report_id, {"complete", "failed"}, timeout=60)
+    run = wait_for(db, report_id, {"complete", "failed"}, timeout=120)
+    deadline = time.time() + 60
+    while os.environ.get("AGENT_INVOKE_URL") and time.time() < deadline \
+            and (db.runs.find_one({"_id": run["_id"]}).get("agent") or {}).get("status") == "suspended":
+        time.sleep(1)
+    run = db.runs.find_one({"_id": run["_id"]})
     worker.send_signal(signal.SIGTERM)
     worker.wait()
 
     check(run["status"] == "complete", f"run complete after restart (status {run['status']})")
+    if os.environ.get("AGENT_INVOKE_URL"):
+        agent = run.get("agent") or {}
+        check(agent.get("status") == "completed", f"Agent Engine execution {agent.get('execution_id')} {agent.get('status')}")
     check(run["executions"].get("read") == 1, f"Reader ran {run['executions'].get('read')} time(s) in total (want 1)")
     ldl = db["values"].find_one({"_id": pending[0]["_id"]})
     check(ldl["status"] == "verified" and ldl["value"] == 104 and ldl["source"] == "person",
