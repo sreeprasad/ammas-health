@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from bson import ObjectId
 from pymongo.database import Database
 
-from pipeline import checkpoints, reader, recorder, verifier
+from pipeline import checkpoints, memory, reader, recorder, verifier, writer
 
 
 def _report_date(reading: dict, report: dict) -> datetime:
@@ -52,15 +52,34 @@ def advance(db: Database, run_id: ObjectId) -> str:
             checkpoints.save_step(db, run_id, step, recorded, started, f"{recorded['written']} values recorded")
             db.reports.update_one({"_id": report["_id"]}, {"$set": {"report_date": report_date, "run_id": run_id}})
 
+        mem = memory.for_amma(session_id=f"run-{run_id}")
+        if "remember" not in done:
+            step = "remember"
+            started = checkpoints.begin_step(db, run_id, step)
+            counts = writer.remember_report_values(db, mem, report["_id"], run_id)
+            checkpoints.save_step(db, run_id, step, counts, started,
+                                  f"{counts['semantic']} facts · {counts['taxonomic']} new terms · {counts['held']} held")
+
         step = "confirm"
-        recorder.apply_answers(db, run_id)
+        if recorder.apply_answers(db, run_id):
+            writer.remember_report_values(db, mem, report["_id"], run_id)
         waiting = [v["_id"] for v in db["values"].find({"report_id": report["_id"], "status": "needs_person"}, {"_id": 1})]
         if waiting:
             checkpoints.pause(db, run_id, waiting)
             db.reports.update_one({"_id": report["_id"]}, {"$set": {"status": "paused"}})
             return "paused"
-        started = checkpoints.begin_step(db, run_id, step)
-        checkpoints.save_step(db, run_id, step, {}, started, "every value verified")
+        if "confirm" not in done:
+            started = checkpoints.begin_step(db, run_id, step)
+            checkpoints.save_step(db, run_id, step, {}, started, "every value verified")
+
+        if "visit" not in done:
+            step = "visit"
+            started = checkpoints.begin_step(db, run_id, step)
+            visit_date = report_date.date().isoformat()
+            note = db.notes.find_one({"date": visit_date})
+            writer.remember_visit(db, mem, visit_date, f"Lab visit {visit_date}",
+                                  writer.visit_content(db, [report["_id"]], note), ["lab-visit"], run_id)
+            checkpoints.save_step(db, run_id, step, {"visit_date": visit_date}, started, f"episode saved for {visit_date}")
         checkpoints.complete(db, run_id)
         db.reports.update_one({"_id": report["_id"]}, {"$set": {"status": "complete"}})
         return "complete"

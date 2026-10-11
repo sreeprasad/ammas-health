@@ -55,7 +55,8 @@ def main() -> None:
         db["values"].insert_many([
             {
                 "report_id": report_id, "report_key": truth["report_key"], "report_date": report_date,
-                "test": v["test"], "printed_name": v["printed_name"], "value": v["value"], "value_text": v["value_text"],
+                "test": v["test"], "standard_name": v["standard_name"], "printed_name": v["printed_name"],
+                "value": v["value"], "value_text": v["value_text"],
                 "unit": v["unit"], "range": v["range"], "flag": v["flag"], "page": v["page"], "box": v["box"],
                 "status": "verified", "source": "seed", "checks": [], "created_at": now, "updated_at": now,
             }
@@ -63,7 +64,11 @@ def main() -> None:
         ])
         reports += 1
         values += len(truth["values"])
-    print(f"history: {reports} reports, {values} verified values, originals in GridFS")
+    db.notes.delete_many({})
+    notes = [json.loads(p.read_text()) for p in sorted((DATA / "notes").glob("note-*.json"))]
+    db.notes.insert_many([{**n, "created_at": now} for n in notes])
+    db.notes.create_index("date")
+    print(f"history: {reports} reports, {values} verified values, originals in GridFS, {len(notes)} doctor notes")
 
 
 if __name__ == "__main__":

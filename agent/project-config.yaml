@@ -44,9 +44,7 @@ memory:
   #     prompt: "..."
   # NOTE: removing the 'enabled' line entirely falls back to the server default;
   # keep an explicit list (or []) to control exactly which types run.
+  # Off on purpose: the harness writes memory explicitly, and only verified values
+  # (policy no-uncertain-writes). Extraction from turns would bypass that policy.
   extraction:
-    enabled:
-      - semantic
-      - episodic
-      - taxonomic
-      - procedural
+    enabled: []

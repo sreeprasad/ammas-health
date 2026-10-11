@@ -21,3 +21,4 @@ htmlcov/
 
 # Template locks are dev artifacts here; CI resolves fresh under the cooldown policy.
 uv.lock
+.env.*
