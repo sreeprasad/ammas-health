@@ -19,6 +19,7 @@ dependencies = [
     "pymongo>=4.10",
     "google-genai>=1.0",
     "agent-engine-sdk-memory>=0.11",
+    "requests>=2.31",
 ]
 
 [project.scripts]

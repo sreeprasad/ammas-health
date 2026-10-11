@@ -153,8 +153,8 @@
       "test": "u_crystals",
       "standard_name": "Urine crystals",
       "printed_name": "Crystals",
-      "value": -0.0,
-      "value_text": "-0",
+      "value": 0.0,
+      "value_text": "0",
       "unit": "/hpf",
       "range": {
         "low": 0.0,
@@ -166,7 +166,7 @@
       "box": [
         0.4468,
         0.5171,
-        0.4839,
+        0.4702,
         0.5336
       ]
     },

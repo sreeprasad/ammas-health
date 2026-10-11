@@ -59,6 +59,8 @@ export default function FamilyView({
             </svg>
             <span>
               <strong>{family.saved.dayLabel} report saved.</strong> {family.saved.verified} values verified.
+              {family.saved.learned &&
+                ` New reading rule learned and re-tested on her 22 earlier reports: ${family.saved.learned.regressions} broke.`}
             </span>
           </span>
           <button type="button" onClick={goHood} style={{ minHeight: 44, padding: "0 16px", borderRadius: 10, border: "1px solid #0B6E5F", background: "#0B6E5F", color: "#FFFFFF", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>

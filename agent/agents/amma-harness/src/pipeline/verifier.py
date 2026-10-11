@@ -5,7 +5,7 @@ from datetime import datetime
 
 from pymongo.database import Database
 
-RULE_V3 = {"version": "v3", "min_confidence": 0.8, "max_jump": 0.5}
+from pipeline.rules import RULE_V3, decide  # noqa: F401  (RULE_V3 re-exported for callers)
 
 
 def parse_range(text: str) -> tuple[float | None, float | None]:
@@ -43,31 +43,30 @@ def verify(db: Database, reading: dict, report_date: datetime, rule: dict = RULE
     results = []
     for v in reading["values"]:
         test = aliases.get(v["printed_name"].lower())
-        checks = []
-        status = "verified"
-
         previous = last_value(db, test, report_date) if test else None
+        decision, final, reason = decide(rule, v["value"], v["confidence"], previous)
         jump = abs(v["value"] - previous) / previous if (v["value"] is not None and previous) else None
 
+        checks = []
         if test is None:
             checks.append("new term")
-        if v["value"] is None:
-            status = "needs_person"
+        if decision == "ask" and v["value"] is None:
             checks.append(f'unreadable "{v["value_text"]}"')
-        elif v["confidence"] < rule["min_confidence"] and jump is not None and jump > rule["max_jump"]:
-            status = "needs_person"
-            checks.append(f"low confidence {v['confidence']:.2f} and {jump:.0%} jump from {previous:g}")
-        elif jump is not None:
-            checks.append("fits trend" if jump <= rule["max_jump"] else f"{jump:.0%} jump from {previous:g}, read clearly")
+        else:
+            checks.append(reason)
 
         low, high = parse_range(v["range_text"])
-        if v["value"] is not None and (low is not None or high is not None):
-            expected = "L" if low is not None and v["value"] < low else "H" if high is not None and v["value"] > high else ""
+        if final is not None and (low is not None or high is not None):
+            expected = "L" if low is not None and final < low else "H" if high is not None and final > high else ""
             if v["flag"] and expected != v["flag"]:
                 checks.append(f"printed flag {v['flag']} disagrees with range")
 
-        results.append({**v, "test": test, "previous": previous, "jump": None if jump is None else round(jump, 3),
-                        "status": status, "checks": checks, "range": {"text": v["range_text"], "low": low, "high": high}})
+        record = {**v, "test": test, "previous": previous, "jump": None if jump is None else round(jump, 3),
+                  "status": "needs_person" if decision == "ask" else "verified", "decision": decision,
+                  "checks": checks, "range": {"text": v["range_text"], "low": low, "high": high}}
+        if decision == "snap":
+            record.update(value=final, value_text=f"{final:g}", read_as=v["value_text"])
+        results.append(record)
 
     return {
         "rule": rule["version"],

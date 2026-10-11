@@ -123,10 +123,13 @@ export async function getFamily(db: Db): Promise<Family> {
     ? await db.collection("values").find({ report_id: latestUpload._id }).sort({ page: 1, _id: 1 }).toArray()
     : [];
   const pendingLabel = latestUpload?.report_date ? dayLabel(isoDay(latestUpload.report_date)) : null;
+  const firstOnFile = async (d: Document) =>
+    !d.test || !(await db.collection("values").findOne({ test: d.test, status: "verified", report_date: { $lt: d.report_date } }));
+  const firsts = await Promise.all(pendingDocs.map((d) => (d.status === "verified" ? firstOnFile(d) : false)));
   const newFindings = pendingDocs
-    .filter((d) => d.status === "verified" && !d.test)
+    .filter((_, i) => firsts[i])
     .map((d) => ({
-      name: d.printed_name as string,
+      name: (d.standard_name as string | undefined)?.toLowerCase() ?? (d.printed_name as string),
       valueText: d.value_text as string,
       unit: d.unit as string,
       range: d.range?.text as string,
@@ -202,8 +205,13 @@ export async function getFamily(db: Db): Promise<Family> {
     };
   }
 
+  const learned = run ? await db.collection("rules").findOne({ trigger_run_id: run._id, status: "live" }) : null;
   const saved = latestUpload && run?.status === "complete" && waitingDocs.length === 0
-    ? { dayLabel: pendingLabel ?? "New report", verified: pendingDocs.filter((d) => d.status === "verified").length }
+    ? {
+        dayLabel: pendingLabel ?? "New report",
+        verified: pendingDocs.filter((d) => d.status === "verified").length,
+        learned: learned ? { version: learned.version, regressions: (learned.regressions ?? []).length } : null,
+      }
     : null;
 
   const watch: WatchItem[] = [];

@@ -130,12 +130,18 @@ def remember_procedure(db: Database, mem: Memory, rule: dict, run_id: ObjectId |
     key = f"{READING_PROCEDURE}-{rule['version']}"
     if db.memory_writes.find_one({"kind": "procedural", "key": key}):
         return
+    doubt = []
+    if rule["doubt_unreadable"]:
+        doubt.append("a character is unreadable")
+    doubt.append(f"confidence is below {rule['doubt_below_confidence']}"
+                 + (f" and the value jumps more than {rule['max_jump']:.0%} from her last verified value"
+                    if rule["doubt_requires_jump"] else ""))
+    action = "ask a family member" if rule["on_doubt"] == "ask" else "record her last verified value"
     content = (
-        f"Reading rules {rule['version']} for Amrut Clinic lab reports. "
+        f"Reading rules {rule['version']} for Amrut Clinic lab reports. {rule['summary']} "
         f"Read every result row; write unreadable characters as '?'. "
-        f"Ask a family member when a value is unreadable, or when confidence is below {rule['min_confidence']} "
-        f"and the value jumps more than {rule['max_jump']:.0%} from her last verified value. "
-        f"Never fill a digit from the trend."
+        f"A value is in doubt when {' or when '.join(doubt)}; then {action}."
+        + (" Never fill a digit from the trend." if rule["on_doubt"] == "ask" else "")
     )
     mem.save_procedure(
         procedure=key,

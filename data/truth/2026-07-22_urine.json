@@ -132,20 +132,20 @@
       "test": "u_casts",
       "standard_name": "Urine casts",
       "printed_name": "Casts",
-      "value": -1.0,
-      "value_text": "-1",
+      "value": 0.0,
+      "value_text": "0",
       "unit": "/lpf",
       "range": {
         "low": 0.0,
         "high": 2.0,
         "text": "< 2"
       },
-      "flag": "L",
+      "flag": "",
       "page": 1,
       "box": [
         0.4468,
         0.484,
-        0.4839,
+        0.4702,
         0.5006
       ]
     },
@@ -195,8 +195,8 @@
       "test": "u_glu",
       "standard_name": "Urine glucose",
       "printed_name": "Glucose (Urine)",
-      "value": -0.0,
-      "value_text": "-0",
+      "value": 0.0,
+      "value_text": "0",
       "unit": "mg/dL",
       "range": {
         "low": 0.0,
@@ -208,7 +208,7 @@
       "box": [
         0.4468,
         0.5832,
-        0.4839,
+        0.4702,
         0.5998
       ]
     },

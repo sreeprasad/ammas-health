@@ -67,7 +67,7 @@ export type Family = {
   areas: Area[];
   grid: Series[];
   pending: PendingReport | null;
-  saved: { dayLabel: string; verified: number } | null;
+  saved: { dayLabel: string; verified: number; learned: { version: string; regressions: number } | null } | null;
   watch: WatchItem[];
   questions: string[];
   updatedAt: string;

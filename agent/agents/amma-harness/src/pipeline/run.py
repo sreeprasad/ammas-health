@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from bson import ObjectId
 from pymongo.database import Database
 
-from pipeline import checkpoints, memory, reader, recorder, verifier, writer
+from pipeline import checkpoints, memory, reader, recorder, rules, verifier, writer
 
 
 def _report_date(reading: dict, report: dict) -> datetime:
@@ -39,7 +39,7 @@ def advance(db: Database, run_id: ObjectId) -> str:
         if "verify" not in done:
             step = "verify"
             started = checkpoints.begin_step(db, run_id, step)
-            verification = verifier.verify(db, reading, report_date)
+            verification = verifier.verify(db, reading, report_date, rules.live_rule(db))
             checkpoints.save_step(db, run_id, step, verification, started,
                                   f"{verification['verified']} verified · {verification['needs_person']} need a person")
             run = checkpoints.load_run(db, run_id)

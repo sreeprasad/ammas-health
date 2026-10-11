@@ -16,7 +16,7 @@ features:
   memory: true
 # Fixed sandbox pool; each session holds one agent and one tool sandbox.
 scaling:
-    replicas: 8
+  replicas: 8
 # Tool placement and pass-through secrets. This template's tools are all
 # remote-capable, so they run in the tool sandbox.
 sandboxes:
@@ -34,4 +34,12 @@ network:
       ports: [443]
     - fqdn: generativelanguage.googleapis.com
       ports: [443]
+    - fqdn: agentengine.mongodb.com
+      ports: [443]
+    - fqdn: cluster0-shard-00-00.nsrtyn.mongodb.net
+      ports: [27017]
+    - fqdn: cluster0-shard-00-01.nsrtyn.mongodb.net
+      ports: [27017]
+    - fqdn: cluster0-shard-00-02.nsrtyn.mongodb.net
+      ports: [27017]
   egress_mode: allow_list

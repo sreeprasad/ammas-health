@@ -9,6 +9,7 @@ from gridfs import GridFSBucket
 from pymongo.database import Database
 
 from pipeline import writer
+from pipeline.rules import RULE_V3, ensure_seeded
 
 
 def reset_uploads(db: Database, mem: Memory) -> dict:
@@ -48,3 +49,13 @@ def ingest_photos(db: Database, photos: list[Path], member_id: str, report_key: 
     db.audit_log.insert_one({"at": now, "event": "UPLOADED", "actor": member_id,
                              "what": f"{len(pages)} page report uploaded", "report_id": report_id})
     return report_id
+
+
+def reset_rules(db: Database) -> dict:
+    """Back to the starting rule: v3 live, every learned candidate removed."""
+    removed = db.rules.delete_many({"version": {"$ne": RULE_V3["version"]}}).deleted_count
+    ensure_seeded(db)
+    db.rules.update_one({"version": RULE_V3["version"]}, {"$set": {"status": "live"}, "$unset": {"retired_at": ""}})
+    db["values"].update_many({"source": {"$ne": "seed"}, "standard_name": {"$exists": True}, "learned_term": True},
+                             {"$set": {"test": None}, "$unset": {"standard_name": "", "learned_term": ""}})
+    return {"rules_removed": removed}

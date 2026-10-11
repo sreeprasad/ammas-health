@@ -321,7 +321,7 @@ def simulate_values(rng: random.Random) -> list[dict]:
                 v[tid] = HEADLINE[tid][i]
             elif base is not None:
                 spread = max(abs(base) * 0.04, 10 ** -d)
-                v[tid] = round(base + drift * i + rng.uniform(-spread, spread), d)
+                v[tid] = max(0.0, round(base + drift * i + rng.uniform(-spread, spread), d)) + 0.0
         v["esr"] = round(rng.uniform(15, 19))
         v["hscrp"] = round(rng.uniform(0.9, 1.4), 1)
         for (tid, idx), val in PLANTED_JUMPS.items():
