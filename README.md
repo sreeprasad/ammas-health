@@ -5,7 +5,7 @@ Built for the MongoDB *Harness Engineering & Model Wrangling* hackathon (SF Tech
 
 > All data in this repo is synthetic. "Amma K." and "Amrut Clinic" are fictional. No real patient data was used.
 
-**Demo video:** [VIDEO_LINK]
+**Demo video:** https://www.youtube.com/watch?v=AMICUd4mt9k
 
 ---
 
