@@ -17,7 +17,7 @@ from agent_engine_sdk_langgraph import App
 
 from agent_amma_harness.state import HarnessState
 from agent_amma_harness.tools import register
-from pipeline import checkpoints, run
+from pipeline import checkpoints, memory, run
 from pipeline.db import get_db
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(levelname)-8s | %(message)s")
@@ -54,7 +54,13 @@ def build_agent() -> CompiledStateGraph:
     logger.info("Building Amma Harness graph")
 
     def process_report(state: HarnessState) -> dict:
-        match = REPORT_ID.search(_text(state["messages"][-1]))
+        text = _text(state["messages"][-1])
+        if text.lower().startswith("recall "):
+            hits = memory.for_amma(session_id="recall").search(text[7:], sources=["semantic", "taxonomic"], top_k=5)
+            facts = [getattr(h, "content", "") for h in hits]
+            return {"messages": [AIMessage(content=json.dumps({"memory_scope": memory.scope(), "user_id": memory.USER_ID,
+                                                                "facts": facts}))]}
+        match = REPORT_ID.search(text)
         if not match:
             return {"messages": [AIMessage(content="Send the id of an uploaded report to process it.")]}
 

@@ -45,7 +45,7 @@ def main() -> int:
     check(status == "paused", f"Sep 12 run paused (status {status})")
 
     ldl = db["values"].find_one({"report_id": report_id, "printed_name": "LDL-C"})
-    check(ldl["status"] == "needs_person" and not ldl.get("memory_written_at"),
+    check(ldl["status"] == "needs_person" and not (ldl.get("memory_written") or {}).get("local"),
           f'LDL "{ldl["value_text"]}" is {ldl["status"]}, never written to memory')
     check(db.audit_log.find_one({"event": "HELD", "value_id": ldl["_id"]}) is not None, "HELD event in audit_log")
     fact = ldl_fact(mem)
@@ -54,7 +54,7 @@ def main() -> int:
               if "1?4" in (getattr(c, "content", "") or "")]
     check(not leaked, f"no memory chunk contains the unconfirmed reading ({len(leaked)} found)")
     written_hgb = db["values"].find_one({"report_id": report_id, "test": "hgb"})
-    check(bool(written_hgb.get("memory_written_at")), "verified Sep 12 values were written while LDL was held")
+    check(bool((written_hgb.get("memory_written") or {}).get("local")), "verified Sep 12 values were written while LDL was held")
 
     db.answers.insert_one({"run_id": run_id, "value_id": ldl["_id"], "value": 104, "member_id": "sreeprasad",
                            "at": datetime.now(timezone.utc), "applied": False})

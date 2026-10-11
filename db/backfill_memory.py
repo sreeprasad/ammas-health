@@ -15,7 +15,7 @@ def main() -> None:
     mem = memory.for_amma(session_id="backfill")
     totals = {"semantic": 0, "taxonomic": 0, "held": 0, "older": 0}
 
-    for report in db.reports.find({"source": "seed"}).sort("report_date", 1):
+    for report in db.reports.find({"report_date": {"$exists": True}}).sort("report_date", 1):
         counts = writer.remember_report_values(db, mem, report["_id"], run_id=None, actor="backfill")
         for k in totals:
             totals[k] += counts[k]

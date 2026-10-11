@@ -30,9 +30,14 @@ def _service_account_token() -> str:
     return _token["value"]
 
 
+def scope() -> str:
+    """Which memory store writes go to: the local dev stack or the hosted project."""
+    return os.environ.get("AMMA_MEMORY_MODE", "local")
+
+
 def client() -> Memory:
     """AMMA_MEMORY_MODE=local reaches the stack from `agentengine dev up`; hosted uses a service account and the project id."""
-    if os.environ.get("AMMA_MEMORY_MODE", "local") == "local":
+    if scope() == "local":
         return Memory(base_url=os.environ["AGENTIC_MEMORY_BASE_URL"])
     return Memory(service_account_token=_service_account_token(), project_id=os.environ["AGENTIC_MEMORY_PROJECT_ID"])
 

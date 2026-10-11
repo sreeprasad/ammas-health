@@ -11,7 +11,7 @@ from pymongo.database import Database
 
 from agent_engine_sdk_memory import Memory
 
-from pipeline.memory import LAB_DOMAIN, READING_PROCEDURE
+from pipeline.memory import LAB_DOMAIN, READING_PROCEDURE, scope
 
 POLICY = "no-uncertain-writes"
 
@@ -22,7 +22,7 @@ def _now() -> datetime:
 
 def _log_write(db: Database, kind: str, key: str, summary: str, run_id: ObjectId | None) -> None:
     db.memory_writes.update_one(
-        {"kind": kind, "key": key},
+        {"kind": kind, "key": key, "scope": scope()},
         {"$set": {"summary": summary, "run_id": run_id, "at": _now()}, "$inc": {"writes": 1}},
         upsert=True,
     )
@@ -75,7 +75,7 @@ def remember_term(db: Database, mem: Memory, printed_name: str, test: str, unit:
                   run_id: ObjectId | None) -> bool:
     """Taxonomic: printed name -> standard name, shared across the project."""
     key = f"{LAB_DOMAIN}:{printed_name.lower()}"
-    if db.memory_writes.find_one({"kind": "taxonomic", "key": key}):
+    if db.memory_writes.find_one({"kind": "taxonomic", "key": key, "scope": scope()}):
         return False
     name = names.get(test, test)
     definition = f'"{printed_name}" on a lab report means {name} (test id {test}), reported in {unit or "no unit"}.'
@@ -98,7 +98,7 @@ def remember_report_values(db: Database, mem: Memory, report_id: ObjectId, run_i
                        run_id=run_id, value_id=value["_id"])
             counts["held"] += 1
             continue
-        if value.get("memory_written_at") or not value.get("test"):
+        if (value.get("memory_written") or {}).get(scope()) or not value.get("test"):
             continue
         if remember_fact(db, mem, value, names, run_id):
             counts["semantic"] += 1
@@ -106,7 +106,7 @@ def remember_report_values(db: Database, mem: Memory, report_id: ObjectId, run_i
             counts["older"] += 1
         if remember_term(db, mem, value["printed_name"], value["test"], value["unit"], names, run_id):
             counts["taxonomic"] += 1
-        db["values"].update_one({"_id": value["_id"]}, {"$set": {"memory_written_at": _now()}})
+        db["values"].update_one({"_id": value["_id"]}, {"$set": {f"memory_written.{scope()}": _now()}})
         if value.get("held_at"):
             counts["released"] += 1
             _audit(db, "RELEASED", value.get("answered_by", actor),
@@ -118,7 +118,7 @@ def remember_report_values(db: Database, mem: Memory, report_id: ObjectId, run_i
 def remember_visit(db: Database, mem: Memory, visit_date: str, title: str, content: str, tags: list[str],
                    run_id: ObjectId | None) -> None:
     """Episodic: one episode per visit, stored under a per-visit session id."""
-    if db.memory_writes.find_one({"kind": "episodic", "key": f"visit-{visit_date}"}):
+    if db.memory_writes.find_one({"kind": "episodic", "key": f"visit-{visit_date}", "scope": scope()}):
         return
     mem.save_episode(title=title, content=content, session_id=f"visit-{visit_date}", tags=tags,
                      participants=["amma"], metadata={"visit_date": visit_date})
@@ -128,7 +128,7 @@ def remember_visit(db: Database, mem: Memory, visit_date: str, title: str, conte
 def remember_procedure(db: Database, mem: Memory, rule: dict, run_id: ObjectId | None) -> None:
     """Procedural: the reading rules for this report layout, one procedure per rule version."""
     key = f"{READING_PROCEDURE}-{rule['version']}"
-    if db.memory_writes.find_one({"kind": "procedural", "key": key}):
+    if db.memory_writes.find_one({"kind": "procedural", "key": key, "scope": scope()}):
         return
     doubt = []
     if rule["doubt_unreadable"]:
