@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import type { Hood } from "@/lib/hood";
 import type { Family } from "@/lib/types";
 import FamilyView, { type Denied } from "./FamilyView";
 import UnderTheHood from "./UnderTheHood";
@@ -22,10 +23,12 @@ export default function ScreenSwitch() {
   const [memberId, setMemberId] = useState("sreeprasad");
   const [family, setFamily] = useState<Family | null>(null);
   const [denied, setDenied] = useState<Denied | null>(null);
+  const [hood, setHood] = useState<Hood | null>(null);
   const pending = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const refresh = useCallback(async () => {
     const headers = { "x-member-id": memberId };
+    fetch("/api/hood", { cache: "no-store", headers }).then(async (r) => setHood(r.ok ? await r.json() : null));
     const response = await fetch("/api/family", { cache: "no-store", headers });
     if (response.ok) {
       setFamily(await response.json());
@@ -67,6 +70,14 @@ export default function ScreenSwitch() {
     [memberId],
   );
 
+  const post = useCallback(
+    async (path: string) => {
+      const response = await fetch(path, { method: "POST", headers: { "x-member-id": memberId } });
+      if (!response.ok) throw new Error((await response.json()).error ?? "request rejected");
+    },
+    [memberId],
+  );
+
   const run = family?.run ?? { status: "none" as const, text: denied ? "Lab values hidden for this viewer" : "No run yet" };
 
   return (
@@ -104,7 +115,12 @@ export default function ScreenSwitch() {
         {view === "family" ? (
           <FamilyView family={family} denied={denied} onAnswer={answer} goHood={() => setView("hood")} />
         ) : (
-          <UnderTheHood />
+          <UnderTheHood
+            hood={hood}
+            onReplay={() => post("/api/replay")}
+            onRunWatcher={() => post("/api/watcher/run")}
+            goFamily={() => setView("family")}
+          />
         )}
       </div>
     </div>

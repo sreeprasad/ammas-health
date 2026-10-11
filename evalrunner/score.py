@@ -19,6 +19,16 @@ def _key(printed_name: str) -> str:
 
 def build_cases(app_db: Database, vault_db: Database) -> list[dict]:
     """One case per locked answer: what the Reader saw, her previous value, and the true value."""
+    history: dict[str, list] = {}
+    for v in app_db["values"].find({"status": "verified", "source": "seed"}, {"test": 1, "report_date": 1, "value": 1}):
+        history.setdefault(v["test"], []).append((v["report_date"], v["value"]))
+    for rows in history.values():
+        rows.sort()
+
+    def previous_value(test: str, before) -> float | None:
+        earlier = [value for when, value in history.get(test, []) if when < before]
+        return earlier[-1] if earlier else None
+
     cases = []
     for answer in vault_db.answers.find({}, {"_id": 0}).sort("report_key", 1):
         truth = answer["truth"]
@@ -32,9 +42,6 @@ def build_cases(app_db: Database, vault_db: Database) -> list[dict]:
         for t in truth["values"]:
             truth_rows.setdefault(t["page"], []).append(t)
         for t in truth["values"]:
-            previous = app_db["values"].find_one(
-                {"test": t["test"], "status": "verified", "report_date": {"$lt": report["report_date"]}},
-                sort=[("report_date", -1)])
             read = seen.get((t["page"], _key(t["printed_name"])))
             rows, truths = by_page.get(t["page"], []), truth_rows[t["page"]]
             matched_by = "name"
@@ -50,7 +57,7 @@ def build_cases(app_db: Database, vault_db: Database) -> list[dict]:
                 "confidence": read["confidence"] if read else 0.0,
                 "found": read is not None,
                 "matched_by": matched_by if read is not None else None,
-                "previous": previous["value"] if previous else None,
+                "previous": previous_value(t["test"], report["report_date"]),
             })
     return cases
 

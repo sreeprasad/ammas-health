@@ -317,3 +317,9 @@ h1 {
     opacity: 1;
   }
 }
+
+.chip-bad {
+  background: #fbe7e4;
+  color: #8f1d12;
+  border: 1px solid #edb8b0;
+}

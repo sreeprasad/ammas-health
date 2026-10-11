@@ -61,6 +61,7 @@ export type WatchItem = { tag: "RISING" | "LOW" | "NEW" | "GOOD"; text: string }
 export type Family = {
   clinic: string;
   viewer: string;
+  asks: { id: string; question: string; status: string; reply: string | null; blocked: boolean }[];
   subtitle: string;
   nextVisit: { department: string; label: string } | null;
   run: RunState;
@@ -68,7 +69,7 @@ export type Family = {
   areas: Area[];
   grid: Series[];
   pending: PendingReport | null;
-  saved: { dayLabel: string; verified: number; learned: { version: string; regressions: number } | null } | null;
+  saved: { dayLabel: string; verified: number; learned: { version: string; regressions: number; reports: number | null } | null } | null;
   watch: WatchItem[];
   questions: string[];
   prepDraftedAt: string | null;

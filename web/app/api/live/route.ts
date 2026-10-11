@@ -1,7 +1,7 @@
 import { connection } from "next/server";
 import { authorize } from "@/lib/access";
 
-const WATCHED = ["values", "runs", "reports", "answers"];
+const WATCHED = ["values", "runs", "reports", "answers", "asks", "audit_log", "rules", "memory_writes", "followups", "watcher_state", "visit_prep"];
 
 export async function GET(request: Request) {
   await connection();

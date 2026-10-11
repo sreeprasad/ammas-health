@@ -211,7 +211,9 @@ export async function getFamily(db: Db, viewer: string): Promise<Family> {
     ? {
         dayLabel: pendingLabel ?? "New report",
         verified: pendingDocs.filter((d) => d.status === "verified").length,
-        learned: learned ? { version: learned.version, regressions: (learned.regressions ?? []).length } : null,
+        learned: learned
+          ? { version: learned.version, regressions: (learned.regressions ?? []).length, reports: learned.reports_tested ?? null }
+          : null,
       }
     : null;
 
@@ -252,9 +254,18 @@ export async function getFamily(db: Db, viewer: string): Promise<Family> {
     .filter(Boolean)
     .join(" · ");
 
+  const asks = (await db.collection("asks").find({ member_id: viewer }).sort({ at: -1 }).limit(3).toArray()).map((a) => ({
+    id: String(a._id),
+    question: a.question as string,
+    status: a.status as string,
+    reply: (a.reply as string | undefined) ?? null,
+    blocked: Boolean(a.blocked),
+  }));
+
   return {
     clinic: CLINIC,
     viewer,
+    asks,
     subtitle,
     nextVisit,
     run: runState(run, latestUpload, waitingDocs.length),

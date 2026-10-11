@@ -87,6 +87,7 @@ def learn() -> dict:
     ]
 
     cases = build_cases(eval_app, vault)
+    reports_tested = len({c["report_key"] for c in cases})
     baseline = score(live, cases)
     print(f"{live['version']} (live): {baseline['correct']}/{baseline['total']} correct, asks {baseline['asked']}")
 
@@ -110,6 +111,7 @@ def learn() -> dict:
         app.rules.replace_one({"version": c["version"]}, {
             **c, "status": status, "created_at": now, "decided_at": now, "trigger_run_id": run["_id"],
             "gate": GATE, "baseline": {"version": live["version"], **_summary(baseline)}, "scores": _summary(result),
+            "reports_tested": reports_tested,
             "regressions": [{k: b[k] for k in ["report_key", "printed_name", "truth", "final", "read_text"]} for b in broke],
         }, upsert=True)
         app.audit_log.insert_one({
@@ -117,7 +119,7 @@ def learn() -> dict:
             "what": (f"Rule {c['version']} promoted at {result['correct']} / {result['total']}, 0 regressions" if promoted
                      else f"Rule {c['version']} failed the learning check: {len(broke)} regression(s)" if broke
                      else f"Rule {c['version']} passed but did not beat {winner[0]['version'] if winner else live['version']}"),
-            "detail": f"{len(cases)} values across 22 reports, scored against eval_vault", "run_id": run["_id"],
+            "detail": f"{len(cases)} values across {reports_tested} reports, scored against eval_vault", "run_id": run["_id"],
         })
 
     mem = memory.for_amma(session_id=f"learning-{run['_id']}")
@@ -129,6 +131,7 @@ def learn() -> dict:
         print(f"no candidate passed; {live['version']} stays live")
 
     terms = learn_terms(app, mem, run)
+    app.learning_jobs.update_many({"run_id": run["_id"]}, {"$set": {"status": "done", "finished_at": _now()}})
     for t in terms:
         print(f"learned term: {t['printed_name']!r} -> {t['standard_name']} ({t['test_id']})")
     return {

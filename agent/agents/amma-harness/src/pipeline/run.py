@@ -61,8 +61,8 @@ def advance(db: Database, run_id: ObjectId) -> str:
                                   f"{counts['semantic']} facts · {counts['taxonomic']} new terms · {counts['held']} held")
 
         step = "confirm"
-        if recorder.apply_answers(db, run_id):
-            writer.remember_report_values(db, mem, report["_id"], run_id)
+        recorder.apply_answers(db, run_id)
+        writer.remember_report_values(db, mem, report["_id"], run_id)
         waiting = [v["_id"] for v in db["values"].find({"report_id": report["_id"], "status": "needs_person"}, {"_id": 1})]
         if waiting:
             checkpoints.pause(db, run_id, waiting)

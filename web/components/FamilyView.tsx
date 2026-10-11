@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Family } from "@/lib/types";
 import AreaStory from "./AreaStory";
+import AskBox from "./AskBox";
 import BodyMap from "./BodyMap";
 import NewReportBanner from "./NewReportBanner";
 import ReportGrid from "./ReportGrid";
@@ -85,7 +86,7 @@ export default function FamilyView({
             <span>
               <strong>{family.saved.dayLabel} report saved.</strong> {family.saved.verified} values verified.
               {family.saved.learned &&
-                ` New reading rule learned and re-tested on her 22 earlier reports: ${family.saved.learned.regressions} broke.`}
+                ` New reading rule learned and re-tested on her ${family.saved.learned.reports ?? "earlier"} earlier reports: ${family.saved.learned.regressions} broke.`}
             </span>
           </span>
           <button type="button" onClick={goHood} style={{ minHeight: 44, padding: "0 16px", borderRadius: 10, border: "1px solid #0B6E5F", background: "#0B6E5F", color: "#FFFFFF", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>
@@ -103,6 +104,7 @@ export default function FamilyView({
 
       {family && <ReportGrid grid={family.grid} visits={family.visits} />}
       {family && <VisitPrep family={family} />}
+      {family && <AskBox family={family} />}
 
       <section className="card" style={{ borderRadius: 16, padding: "16px 20px", display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center", justifyContent: "space-between" }}>
         <span style={{ display: "flex", flexDirection: "column" }}>

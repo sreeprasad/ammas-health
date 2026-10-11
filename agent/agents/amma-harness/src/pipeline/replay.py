@@ -59,3 +59,20 @@ def reset_rules(db: Database) -> dict:
     db["values"].update_many({"source": {"$ne": "seed"}, "standard_name": {"$exists": True}, "learned_term": True},
                              {"$set": {"test": None}, "$unset": {"standard_name": "", "learned_term": ""}})
     return {"rules_removed": removed}
+
+
+DEMO_REPORT = "2026-09-12_full-panel"
+
+
+def reset_demo(db: Database, mem: Memory, photos: list[Path]) -> dict:
+    """The before state: rules v3 only, no uploads, demo events cleared (test events kept), then Sep 12 uploaded again.
+
+    The new upload goes through the normal path (change stream -> run), so it pauses on the smudged LDL again.
+    """
+    summary = {**reset_rules(db), **reset_uploads(db, mem)}
+    summary["audit_events_cleared"] = db.audit_log.delete_many({"test": {"$ne": True}}).deleted_count
+    summary["asks_cleared"] = db.asks.delete_many({}).deleted_count
+    summary["visit_prep_cleared"] = db.visit_prep.delete_many({}).deleted_count
+    db.learning_jobs.delete_many({})
+    summary["report_id"] = str(ingest_photos(db, photos, "sreeprasad", DEMO_REPORT))
+    return summary
