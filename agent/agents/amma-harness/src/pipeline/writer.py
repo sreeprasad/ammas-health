@@ -10,6 +10,7 @@ from bson import ObjectId
 from pymongo.database import Database
 
 from agent_engine_sdk_memory import Memory
+from agent_engine_sdk_memory.errors import MemoryBadRequestError, MemoryServerError
 
 from pipeline.memory import LAB_DOMAIN, READING_PROCEDURE, scope
 
@@ -79,8 +80,12 @@ def remember_term(db: Database, mem: Memory, printed_name: str, test: str, unit:
         return False
     name = names.get(test, test)
     definition = f'"{printed_name}" on a lab report means {name} (test id {test}), reported in {unit or "no unit"}.'
-    mem.save_taxonomic(domain=LAB_DOMAIN, term=printed_name, definition=definition, related_terms=[name, test],
-                       metadata={"test": test})
+    try:
+        mem.save_taxonomic(domain=LAB_DOMAIN, term=printed_name, definition=definition, related_terms=[name, test],
+                           metadata={"test": test})
+    except MemoryBadRequestError as e:
+        if "already exists" not in str(e):
+            raise
     _log_write(db, "taxonomic", key, definition, run_id)
     return True
 
@@ -143,14 +148,18 @@ def remember_procedure(db: Database, mem: Memory, rule: dict, run_id: ObjectId |
         f"A value is in doubt when {' or when '.join(doubt)}; then {action}."
         + (" Never fill a digit from the trend." if rule["on_doubt"] == "ask" else "")
     )
-    mem.save_procedure(
-        procedure=key,
-        description=f"How to read and verify an Amrut Clinic lab report (rule {rule['version']})",
-        content=content,
-        trigger_conditions=["a new lab report photo or PDF arrives"],
-        tags=["lab-report", rule["version"]],
-        metadata={"rule_version": rule["version"]},
-    )
+    try:
+        mem.save_procedure(
+            procedure=key,
+            description=f"How to read and verify an Amrut Clinic lab report (rule {rule['version']})",
+            content=content,
+            trigger_conditions=["a new lab report photo or PDF arrives"],
+            tags=["lab-report", rule["version"]],
+            metadata={"rule_version": rule["version"]},
+        )
+    except MemoryServerError as e:
+        if "Duplicate" not in str(e):
+            raise
     _log_write(db, "procedural", key, f"rule {rule['version']}", run_id)
 
 

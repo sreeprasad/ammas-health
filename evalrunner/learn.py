@@ -144,7 +144,10 @@ def learn() -> dict:
 
 
 def main() -> int:
-    result = learn()
+    try:
+        result = learn()
+    finally:
+        get_db("HARNESS_AGENT").learning_jobs.update_many({"status": "started"}, {"$set": {"status": "done", "finished_at": _now()}})
     return 0 if result.get("promoted") else 1
 
 

@@ -230,6 +230,7 @@ The biggest risk is the preview platform, not the code: Agent Engine is in publi
 | Field-level encryption setup eats an hour | Medium | Explicit encryption of note text only (M6 step 6) |
 | Free-tier rate limits during rehearsal | Low | Cache Reader output per report hash |
 | Sandbox pool full with 4 replicas | Low | Raise `scaling.replicas` before the build; reuse session IDs |
+| Venue Wi-Fi blocks the Atlas primary node (port 27017 to one host) | Seen on the day | Demo on a phone hotspot with its IP in the Atlas access list |
 
 **Open questions**
 

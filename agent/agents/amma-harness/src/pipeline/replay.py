@@ -71,6 +71,9 @@ def reset_demo(db: Database, mem: Memory, photos: list[Path]) -> dict:
     """
     summary = {**reset_rules(db), **reset_uploads(db, mem)}
     summary["audit_events_cleared"] = db.audit_log.delete_many({"test": {"$ne": True}}).deleted_count
+    summary["memory_guards_cleared"] = db.memory_writes.delete_many({"$or": [
+        {"kind": "episodic", "key": "visit-2026-09-12"},
+    ]}).deleted_count
     summary["asks_cleared"] = db.asks.delete_many({}).deleted_count
     summary["visit_prep_cleared"] = db.visit_prep.delete_many({}).deleted_count
     db.learning_jobs.delete_many({})
