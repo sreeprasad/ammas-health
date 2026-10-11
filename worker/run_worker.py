@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pipeline import checkpoints, run  # noqa: E402
+from pipeline import checkpoints, recorder, run  # noqa: E402
 from pipeline.db import get_db  # noqa: E402
 from worker import agent_client  # noqa: E402
 
@@ -33,6 +33,9 @@ def start_report(db, report_id) -> None:
 
 def handle_answer(db, answer) -> None:
     if agent_client.invoke_url():
+        # The family's answer is the source of truth, so the value flips now; the resumed agent run
+        # then does the governed part (memory writes, completing the run).
+        recorder.apply_answers(db, answer["run_id"])
         status = agent_client.resume(db, answer["run_id"], answer["value"])
         log.info("answer for run %s -> agent: %s", answer["run_id"], status)
         return

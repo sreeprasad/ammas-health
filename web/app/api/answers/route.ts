@@ -16,10 +16,9 @@ export async function POST(request: Request) {
   }
 
   const db = await getDb();
-  const pending = await db
-    .collection("values")
-    .findOne({ _id: new ObjectId(value_id), run_id: new ObjectId(run_id), status: "needs_person" });
+  const pending = await db.collection("values").findOne({ _id: new ObjectId(value_id), status: "needs_person" });
   if (!pending) return Response.json({ error: "no value waiting for an answer" }, { status: 409 });
+  if (String(pending.run_id) !== run_id) return Response.json({ error: "value belongs to a different run" }, { status: 409 });
 
   const now = new Date();
   const { insertedId } = await db.collection("answers").insertOne({

@@ -66,24 +66,29 @@ def build_agent() -> CompiledStateGraph:
         status = "paused" if existing["status"] == "paused" else run.advance(db, run_id)
 
         if status == "paused":
-            value = db["values"].find_one({"run_id": run_id, "status": "needs_person"})
+            # The payload comes from the run's checkpointed verification, so it is identical on replay
+            # even after the family's answer has already updated the value.
+            held = next(v for v in checkpoints.load_run(db, run_id)["outputs"]["verify"]["values"]
+                        if v["status"] == "needs_person")
+            value = db["values"].find_one({"run_id": run_id, "page": held["page"], "printed_name": held["printed_name"]})
             answer = interrupt({
                 "reason": "A value could not be read with confidence. It is held out of her record until a person checks it.",
                 "run_id": str(run_id),
                 "value_id": str(value["_id"]),
-                "printed_name": value["printed_name"],
-                "read_as": value["value_text"],
-                "page": value["page"],
-                "range": value["range"]["text"],
-                "question": f'What does {value["printed_name"]} read on page {value["page"]} of the paper report?',
+                "printed_name": held["printed_name"],
+                "read_as": held["value_text"],
+                "page": held["page"],
+                "range": held["range"]["text"],
+                "question": f'What does {held["printed_name"]} read on page {held["page"]} of the paper report?',
                 "response_schema": ANSWER_SCHEMA,
             })
             confirmed = _answer_value(answer)
             if confirmed is None:
                 return {"messages": [AIMessage(content=f"No number in the answer {answer!r}; the value stays held.")]}
-            db.answers.insert_one({"run_id": run_id, "value_id": value["_id"], "value": confirmed,
-                                   "member_id": "family", "at": datetime.now(timezone.utc), "applied": False,
-                                   "via": "agent-engine-resume"})
+            if db["values"].find_one({"_id": value["_id"]})["status"] == "needs_person":
+                db.answers.insert_one({"run_id": run_id, "value_id": value["_id"], "value": confirmed,
+                                       "member_id": "family", "at": datetime.now(timezone.utc), "applied": False,
+                                       "via": "agent-engine-resume"})
             status = run.advance(db, run_id)
 
         steps = [s["summary"] for s in checkpoints.load_run(db, run_id)["steps"]]

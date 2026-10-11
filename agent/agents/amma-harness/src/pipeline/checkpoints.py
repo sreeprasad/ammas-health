@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 from bson import ObjectId
 from pymongo import ReturnDocument
+from pymongo.errors import DuplicateKeyError
 from pymongo.database import Database
 
 
@@ -14,13 +15,16 @@ def _now() -> datetime:
 def start_run(db: Database, report_id: ObjectId) -> dict:
     """Create the run for a report, or return the existing one."""
     now = _now()
-    return db.runs.find_one_and_update(
-        {"report_id": report_id},
-        {"$setOnInsert": {"report_id": report_id, "status": "running", "steps": [], "outputs": {},
-                          "executions": {}, "created_at": now, "updated_at": now}},
-        upsert=True,
-        return_document=ReturnDocument.AFTER,
-    )
+    try:
+        return db.runs.find_one_and_update(
+            {"report_id": report_id},
+            {"$setOnInsert": {"report_id": report_id, "status": "running", "steps": [], "outputs": {},
+                              "executions": {}, "created_at": now, "updated_at": now}},
+            upsert=True,
+            return_document=ReturnDocument.AFTER,
+        )
+    except DuplicateKeyError:
+        return db.runs.find_one({"report_id": report_id})
 
 
 def load_run(db: Database, run_id: ObjectId) -> dict:

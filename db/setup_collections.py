@@ -11,7 +11,7 @@ COLLECTIONS = {
         IndexModel([("report_id", ASCENDING)]),
         IndexModel([("status", ASCENDING)]),
     ],
-    "runs": [IndexModel([("report_id", ASCENDING)]), IndexModel([("status", ASCENDING), ("updated_at", DESCENDING)])],
+    "runs": [IndexModel([("report_id", ASCENDING)], unique=True), IndexModel([("status", ASCENDING), ("updated_at", DESCENDING)])],
     "answers": [IndexModel([("run_id", ASCENDING)])],
     "rules": [IndexModel([("version", ASCENDING)], unique=True), IndexModel([("live", ASCENDING)])],
     "followups": [IndexModel([("due", ASCENDING)]), IndexModel([("status", ASCENDING)])],

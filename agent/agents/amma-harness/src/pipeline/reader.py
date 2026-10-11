@@ -81,7 +81,7 @@ def read_report(db: Database, report_id: ObjectId) -> dict:
     bucket = GridFSBucket(db, bucket_name="originals")
     client = None
     model = _model()
-    values, dates, titles = [], [], []
+    values, dates, titles, page_titles = [], [], [], {}
     gemini_calls = cache_hits = 0
 
     for page in sorted(report["pages"], key=lambda p: p["page"]):
@@ -102,6 +102,7 @@ def read_report(db: Database, report_id: ObjectId) -> dict:
             dates.append(reading.collected_date)
         if reading.report_title:
             titles.append(reading.report_title)
+            page_titles[str(page["page"])] = reading.report_title
         for v in reading.values:
             values.append({
                 "printed_name": v.printed_name.strip(),
@@ -120,6 +121,7 @@ def read_report(db: Database, report_id: ObjectId) -> dict:
         "reader_version": READER_VERSION,
         "collected_date": max(set(dates), key=dates.count) if dates else None,
         "titles": sorted(set(titles)),
+        "page_titles": page_titles,
         "values": values,
         "gemini_calls": gemini_calls,
         "cache_hits": cache_hits,

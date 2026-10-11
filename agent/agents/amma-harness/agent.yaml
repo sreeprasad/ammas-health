@@ -14,6 +14,9 @@ framework: langgraph
 features:
   durable_workflow: true
   memory: true
+# Fixed sandbox pool; each session holds one agent and one tool sandbox.
+scaling:
+    replicas: 8
 # Tool placement and pass-through secrets. This template's tools are all
 # remote-capable, so they run in the tool sandbox.
 sandboxes:
